@@ -472,24 +472,51 @@
     return result.replace(/\n{3,}/g,'\n\n').trim();
   }
 
-  /* ============ STYLED HTML BUILDER (for HTML + DOC) ============ */
-  function buildStyledHtml(mdContent){
-    var body = mdToHtml(mdContent);
-    var css = [
-      "body{font-family:'Segoe UI',Calibri,Arial,sans-serif;max-width:800px;margin:2rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.6;}",
-      "h1{font-size:1.8rem;border-bottom:2px solid #333;padding-bottom:0.4rem;margin-bottom:0.4rem;}",
-      "h2{font-size:1.15rem;margin-top:1.5rem;border-bottom:1px solid #ccc;padding-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.06em;}",
-      "h3{font-size:1.02rem;margin-top:1.1rem;color:#222;}",
-      "h4{font-size:0.95rem;margin-top:0.9rem;color:#333;}",
-      "p{margin-bottom:0.7rem;}",
-      "ul{padding-left:1.2rem;margin-bottom:0.8rem;}",
-      "li{margin-bottom:0.25rem;}",
-      "hr{border:none;border-top:1px solid #ddd;margin:1.2rem 0;}",
-      "strong{color:#000;}",
-      "code{background:#f0f0f0;padding:1px 4px;font-size:0.9em;}",
-      "@media print{body{margin:0;padding:0.5in;max-width:none;}}"
+  /* ============================================================
+     SHARED COMPACT PRINT CSS  (used by both PDF and Word export)
+     Tuned for A4 with tighter spacing so ~2 pages fit.
+     ============================================================ */
+  function getCompactCss(){
+    return [
+      "@page{size:A4 portrait;margin:10mm 12mm;}",
+      "*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}",
+      "html,body{margin:0;padding:0;background:#fff;}",
+      "body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:9pt;line-height:1.25;}",
+      "h1{font-size:14pt;font-weight:700;margin:0 0 1pt;padding:0 0 2pt;border-bottom:1pt solid #222;color:#000;line-height:1.1;}",
+      "h2{font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin:6pt 0 2pt;padding-bottom:1pt;border-bottom:0.5pt solid #999;color:#111;page-break-after:avoid;}",
+      "h3{font-size:9pt;font-weight:700;margin:4pt 0 1pt;color:#111;page-break-after:avoid;}",
+      "h4{font-size:8.5pt;font-weight:600;margin:3pt 0 1pt;color:#333;page-break-after:avoid;}",
+      "p{margin:0 0 2pt;color:#222;}",
+      "ul{margin:0 0 2pt;padding-left:10pt;list-style:none;}",
+      "ul li{position:relative;padding-left:8pt;margin:0 0 0.5pt;color:#222;page-break-inside:avoid;}",
+      "ul li::before{content:'•';position:absolute;left:0;color:#555;font-weight:700;}",
+      "hr{border:none;border-top:0.5pt solid #ccc;margin:4pt 0;}",
+      "strong{color:#000;font-weight:700;}",
+      "em{color:#333;font-style:italic;}",
+      "code{background:#f2f2f2;padding:0 2pt;font-size:8pt;font-family:'Consolas','Courier New',monospace;}",
+      "a{color:#111;text-decoration:none;}",
+      "li,p{orphans:2;widows:2;}",
+      "h1,h2,h3,h4{page-break-after:avoid;}"
     ].join('');
-    return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Raffiuddin Shaik — Resume</title>\n<style>' + css + '</style>\n</head>\n<body>\n' + body + '\n</body>\n</html>';
+  }
+
+  /* ============ STYLED HTML BUILDER (for HTML view + DOC) ============ */
+  function buildStyledHtml(mdContent, forWord){
+    var body = mdToHtml(mdContent);
+    var css = getCompactCss();
+    var inner = '<!DOCTYPE html>\n<html><head><meta charset="utf-8">' +
+                '<title>Raffiuddin Shaik — Resume</title>' +
+                '<style>' + css + '</style></head><body>' + body + '</body></html>';
+    if(forWord){
+      // Word needs the o:/w: namespaces and a BOM
+      inner = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
+              'xmlns:w="urn:schemas-microsoft-com:office:word" ' +
+              'xmlns="http://www.w3.org/TR/REC-html40">' +
+              '<head><meta charset="utf-8">' +
+              '<title>Raffiuddin Shaik — Resume</title>' +
+              '<style>' + css + '</style></head><body>' + body + '</body></html>';
+    }
+    return inner;
   }
 
   /* ============ DOWNLOAD HELPERS ============ */
@@ -515,53 +542,25 @@
     triggerDownload(new Blob([editor.value], {type:'text/markdown;charset=utf-8'}), 'raffiuddin-shaik-resume.md');
   }
   function downloadHtml(){
-    triggerDownload(new Blob([buildStyledHtml(editor.value)], {type:'text/html;charset=utf-8'}), 'raffiuddin-shaik-resume.html');
+    triggerDownload(new Blob([buildStyledHtml(editor.value, false)], {type:'text/html;charset=utf-8'}), 'raffiuddin-shaik-resume.html');
   }
   function downloadDoc(){
-    var html = buildStyledHtml(editor.value);
-    var wordHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
-                   'xmlns:w="urn:schemas-microsoft-com:office:word" ' +
-                   'xmlns="http://www.w3.org/TR/REC-html40">' +
-                   html.replace(/^<!DOCTYPE html>\s*<html[^>]*>\s*/i,'');
+    var wordHtml = buildStyledHtml(editor.value, true);
     triggerDownload(new Blob(['\ufeff' + wordHtml], {type:'application/msword;charset=utf-8'}), 'raffiuddin-shaik-resume.doc');
   }
 
   /* ============================================================
-     FIXED PDF EXPORT
-     - Uses a hidden iframe so the browser's native print dialog opens.
-     - Uses tight A4 print CSS so the resume fits in ~2 pages.
+     PDF EXPORT — hidden iframe + native print dialog
+     Uses A4 + tight CSS so the resume fits ~2 pages.
      ============================================================ */
   function downloadPdf(){
     var body = mdToHtml(editor.value);
-
-    // Compact print stylesheet — tuned for ~2 A4 pages
-    var printCss = [
-      "@page{size:A4;margin:12mm 14mm;}",
-      "*{box-sizing:border-box;}",
-      "html,body{margin:0;padding:0;background:#fff;}",
-      "body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:9.5pt;line-height:1.32;}",
-      "h1{font-size:15pt;font-weight:700;margin:0 0 2pt;padding:0 0 3pt;border-bottom:1.2pt solid #222;color:#000;line-height:1.15;}",
-      "h2{font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:8pt 0 3pt;padding-bottom:1pt;border-bottom:0.6pt solid #999;color:#111;page-break-after:avoid;}",
-      "h3{font-size:9.5pt;font-weight:700;margin:6pt 0 1pt;color:#111;page-break-after:avoid;}",
-      "h4{font-size:9pt;font-weight:600;margin:4pt 0 1pt;color:#333;page-break-after:avoid;}",
-      "p{margin:0 0 3pt;color:#222;}",
-      "ul{margin:0 0 3pt;padding-left:12pt;list-style:none;}",
-      "ul li{position:relative;padding-left:10pt;margin:0 0 1pt;color:#222;page-break-inside:avoid;}",
-      "ul li::before{content:'•';position:absolute;left:0;color:#555;font-weight:700;}",
-      "hr{border:none;border-top:0.5pt solid #ccc;margin:5pt 0;}",
-      "strong{color:#000;font-weight:700;}",
-      "em{color:#333;font-style:italic;}",
-      "code{background:#f2f2f2;padding:0 2pt;font-size:8.5pt;font-family:'Consolas','Courier New',monospace;}",
-      "a{color:#111;text-decoration:none;}",
-      "h2,h3,h4{page-break-after:avoid;}",
-      "li,p{orphans:2;widows:2;}"
-    ].join('');
-
+    var css = getCompactCss();
     var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8">' +
                '<title>Raffiuddin Shaik — Resume</title>' +
-               '<style>' + printCss + '</style></head><body>' + body + '</body></html>';
+               '<style>' + css + '</style></head><body>' + body + '</body></html>';
 
-    // Use a hidden iframe — avoids popup blockers and produces a real PDF via "Save as PDF"
+    // Remove any prior iframe
     var oldIframe = document.getElementById('__pdf_iframe__');
     if(oldIframe) oldIframe.parentNode.removeChild(oldIframe);
 
@@ -595,7 +594,6 @@
       }
     };
 
-    // Give the iframe a moment to render, then print
     setTimeout(doPrint, 350);
   }
 

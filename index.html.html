@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Raffiuddin Shaik · Software Engineer</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#0b0e14;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:#e6e9f0;line-height:1.6;display:flex;flex-direction:column;align-items:center;
+    min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased;
+  }
+  .luxe-wrapper{
+    max-width:1200px;width:100%;background:rgba(18,22,28,.75);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:2px solid #2c353f;box-shadow:0 0 0 1px #1a1f26,0 20px 40px -15px rgba(0,0,0,.8);
+    padding:2.5rem 2rem;transition:border-color .3s ease,box-shadow .3s ease;position:relative;
+  }
+  .luxe-wrapper:hover{border-color:#3e4a56;box-shadow:0 0 0 1px #252c34,0 25px 50px -12px rgba(0,0,0,.9)}
+  .luxe-wrapper::before{content:"";position:absolute;inset:-1px;border:1px solid rgba(255,255,255,.02);pointer-events:none;z-index:2}
+  h1,h2,h3,h4,.logo{font-family:'Space Grotesk','Inter',sans-serif;font-weight:400;letter-spacing:.02em;color:#f0f3fa}
+  h1{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:300;line-height:1.15;margin-bottom:.5rem;text-shadow:0 2px 5px rgba(0,0,0,.3)}
+  h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:350;border-bottom:1px solid #2c353f;padding-bottom:.6rem;margin-bottom:2rem;display:inline-block;color:#d6deea}
+  h3{font-size:1.35rem;font-weight:400;margin-bottom:.5rem;color:#e0e6f0}
+  h4{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#7a8b9e;margin-bottom:1.2rem;font-weight:400;border-bottom:1px solid #21272e;padding-bottom:.6rem}
+
+  /* ---------- HEADER WITH PROFILE PHOTO ---------- */
+  .header{
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+    margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid #21272e;
+    gap:1.5rem;
+  }
+  .logo{display:flex;flex-direction:column;gap:.15rem;border-left:3px solid #5f6b7a;padding-left:1rem}
+  .logo-name{font-size:1.35rem;letter-spacing:.18em;text-transform:uppercase;color:#eef2f8;line-height:1.2}
+  .logo-tagline{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#7a8b9e;font-weight:300;font-family:'Inter',sans-serif}
+
+  .profile-photo-wrapper{
+    position:relative;
+    width:110px;
+    height:110px;
+    flex-shrink:0;
+    border:2px solid #3e4a56;
+    padding:4px;
+    background:rgba(10,14,19,.8);
+    transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
+    box-shadow:0 0 0 1px #1a1f26,0 8px 24px -8px rgba(0,0,0,.7);
+  }
+  .profile-photo-wrapper:hover{
+    border-color:#5f6b7a;
+    box-shadow:0 0 0 1px #252c34,0 12px 30px -8px rgba(0,0,0,.9);
+    transform:translateY(-2px);
+  }
+  .profile-photo-wrapper::after{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border:1px solid rgba(255,255,255,.03);
+    pointer-events:none;
+  }
+  .profile-photo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    display:block;
+    filter:contrast(1.03) brightness(1.02);
+    transition:filter .3s ease;
+  }
+  .profile-photo-wrapper:hover .profile-photo{
+    filter:contrast(1.06) brightness(1.05);
+  }
+
+  .tabs{display:flex;gap:.25rem;margin-top:.5rem;width:100%;border-bottom:1px solid #1c2229;padding-bottom:.5rem;flex-wrap:wrap}
+  .tab-btn{background:transparent;border:1px solid transparent;color:#8a9aa8;font-family:'Inter',sans-serif;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.4rem;cursor:pointer;transition:all .25s ease;position:relative}
+  .tab-btn:hover{color:#e6e9f0;border-color:#2c353f;background:rgba(255,255,255,.02)}
+  .tab-btn.active{color:#f0f3fa;border-color:#3e4a56;background:rgba(255,255,255,.04);box-shadow:0 0 0 1px #1a1f26}
+  .tab-btn.active::after{content:"";position:absolute;bottom:-.6rem;left:50%;transform:translateX(-50%);width:40%;height:2px;background:#5f6b7a}
+  .tab-content{display:none;animation:fadeIn .35s ease}
+  .tab-content.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .hero-sub{font-size:1.15rem;color:#9aa8b9;max-width:750px;font-weight:300;border-left:2px solid #3e4a56;padding-left:1.5rem;margin-top:.5rem;margin-bottom:2.5rem}
+  .resume-tag{display:inline-block;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#8494a6;border:1px solid #2e3842;padding:.3rem 1rem;background:#0f1319;margin-bottom:1rem}
+  .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin:2.5rem 0 1.5rem}
+  .home-card{padding:1.8rem 1.5rem;border:1px solid #2c353f;background:rgba(15,19,24,.6);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;box-shadow:0 6px 14px -6px rgba(0,0,0,.6)}
+  .home-card:hover{transform:translateY(-4px);border-color:#4f5d6b;box-shadow:0 20px 30px -12px rgba(0,0,0,.8)}
+  .home-card h3{font-size:1.2rem;margin-bottom:.75rem;color:#d2dce8}
+  .home-card p{color:#99a9ba;font-size:.96rem;font-weight:300}
+  .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin:2rem 0 1rem}
+  .blog-card{padding:2rem 1.8rem;display:flex;flex-direction:column;border:1px solid #2c353f;background:rgba(15,19,24,.6);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;box-shadow:0 6px 14px -6px rgba(0,0,0,.6)}
+  .blog-card:hover{transform:translateY(-4px);border-color:#4f5d6b;box-shadow:0 20px 30px -12px rgba(0,0,0,.8)}
+  .blog-date{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:#6e7e8e;margin-bottom:1rem;border-bottom:1px solid #242b33;padding-bottom:.6rem}
+  .blog-title{font-size:1.4rem;font-weight:400;margin-bottom:1rem;line-height:1.3;color:#eef2f8}
+  .blog-excerpt{font-size:.98rem;color:#b1bfce;margin-bottom:1.6rem;flex:1;font-weight:300}
+  .read-link{font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:#b9c7d6;text-decoration:none;border-bottom:1px solid #3a4551;padding-bottom:.2rem;align-self:flex-start;transition:color .2s,border-color .2s}
+  .read-link:hover{color:#fff;border-bottom-color:#8a9aa8}
+  .contact-container{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin:2rem 0}
+  .contact-info{display:flex;flex-direction:column;gap:2rem}
+  .contact-item{display:flex;align-items:flex-start;gap:1.2rem}
+  .contact-icon{font-size:1.2rem;color:#5f6b7a;width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;border:1px solid #2c353f;background:#0f1319;flex-shrink:0}
+  .contact-label{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#6e7e8e;margin-bottom:.25rem}
+  .contact-value{font-size:1rem;color:#d2dce8;font-weight:300;word-break:break-word}
+  .contact-value a{color:#b9c7d6;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  .contact-value a:hover{border-bottom-color:#5f6b7a;color:#fff}
+  .contact-form{display:flex;flex-direction:column;gap:1.2rem}
+  .form-group{display:flex;flex-direction:column;gap:.4rem}
+  .form-group label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#7a8b9e}
+  .form-group input,.form-group textarea{background:rgba(10,14,19,.8);border:1px solid #2c353f;color:#e6e9f0;padding:.8rem 1rem;font-family:'Inter',sans-serif;font-size:.95rem;outline:none;width:100%;transition:border-color .2s,box-shadow .2s}
+  .form-group input:focus,.form-group textarea:focus{border-color:#4f5d6b;box-shadow:0 0 0 1px #2c353f}
+  .form-group textarea{min-height:120px;resize:vertical}
+  .btn-submit{background:transparent;border:1px solid #3e4a56;color:#d2dce8;padding:.9rem 2rem;font-family:'Inter',sans-serif;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .25s ease;align-self:flex-start}
+  .btn-submit:hover{background:rgba(255,255,255,.04);border-color:#5f6b7a;color:#fff}
+  .resume-toolbar{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:2rem;padding:1.5rem;border:1px solid #2c353f;background:rgba(10,14,19,.5)}
+  .file-upload-wrapper{position:relative;display:inline-block}
+  .file-upload-wrapper input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .btn-tool{background:transparent;border:1px solid #3e4a56;color:#d2dce8;padding:.7rem 1.5rem;font-family:'Inter',sans-serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s ease;white-space:nowrap;display:inline-flex;align-items:center;gap:.5rem}
+  .btn-tool:hover{background:rgba(255,255,255,.05);border-color:#5f6b7a;color:#fff}
+  .btn-tool.primary{border-color:#5f6b7a;background:rgba(95,107,122,.15);color:#eef2f8}
+  .btn-tool.primary:hover{background:rgba(95,107,122,.3)}
+  .toolbar-divider{width:1px;height:2rem;background:#2c353f}
+  .editor-container{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
+  .editor-pane{display:flex;flex-direction:column;border:1px solid #2c353f;background:rgba(10,14,19,.6)}
+  .pane-header{padding:.8rem 1.2rem;border-bottom:1px solid #2c353f;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#7a8b9e;background:rgba(15,19,24,.8);display:flex;justify-content:space-between;align-items:center}
+  .pane-header .char-count{font-size:.7rem;letter-spacing:.05em;color:#5f6b7a;text-transform:none}
+  #resumeEditor{background:rgba(8,11,16,.9);border:none;color:#d2dce8;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.88rem;line-height:1.7;padding:1.2rem;min-height:500px;resize:vertical;outline:none;width:100%;tab-size:2}
+  #resumePreview{padding:1.5rem;background:rgba(8,11,16,.9);min-height:500px;max-height:600px;overflow-y:auto;color:#d2dce8;font-size:.92rem;line-height:1.7}
+  #resumePreview h2{font-size:1.05rem;border-bottom:1px solid #2c353f;padding-bottom:.4rem;margin:1.4rem 0 .7rem;color:#eef2f8;text-transform:uppercase;letter-spacing:.1em;display:block}
+  #resumePreview h3{font-size:1rem;margin:1rem 0 .4rem;color:#d6deea;font-weight:500;text-transform:none;letter-spacing:0}
+  #resumePreview h4{font-size:.92rem;margin:.8rem 0 .3rem;color:#b1bfce;font-weight:500;border:none;padding:0;letter-spacing:.05em;text-transform:none}
+  #resumePreview p{margin-bottom:.8rem;color:#b1bfce}
+  #resumePreview strong{color:#eef2f8;font-weight:600}
+  #resumePreview em{color:#cbd5e1;font-style:italic}
+  #resumePreview code{background:rgba(95,107,122,.18);padding:1px 5px;font-size:.85em;font-family:'SF Mono','Fira Code',monospace}
+  #resumePreview ul{list-style:none;margin-bottom:1rem}
+  #resumePreview ul li{position:relative;padding-left:1.2rem;margin-bottom:.4rem;color:#b1bfce}
+  #resumePreview ul li::before{content:"—";position:absolute;left:0;color:#5f6b7a}
+  #resumePreview hr{border:none;border-top:1px solid #2c353f;margin:1.2rem 0}
+  .download-panel{padding:1.5rem;border:1px solid #2c353f;background:rgba(10,14,19,.5);margin-bottom:2rem}
+  .download-panel h4{margin-bottom:1rem}
+  .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+  .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1a1f26;border:1px solid #4f5d6b;color:#eef2f8;padding:.9rem 1.8rem;font-size:.85rem;letter-spacing:.08em;transition:transform .35s ease;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .resume-glance{margin:3rem 0 1.5rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;border-top:1px solid #21272e;padding-top:2.5rem}
+  .resume-col{flex:1 1 200px}
+  .resume-col ul{list-style:none}
+  .resume-col li{font-size:.95rem;color:#b1bfce;margin-bottom:.75rem;font-weight:300;display:flex;align-items:baseline}
+  .resume-col li::before{content:"—";color:#4f5d6b;margin-right:.8rem}
+  .footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #1c2229;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;font-size:.85rem;color:#6b7b8c;letter-spacing:.03em}
+  .footer a{color:#8a9aa8;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  .footer a:hover{border-bottom-color:#5f6b7a;color:#cbd5e1}
+
+  @media (max-width:1000px){.editor-container{grid-template-columns:1fr}#resumeEditor,#resumePreview{min-height:380px}}
+  @media (max-width:800px){.contact-container{grid-template-columns:1fr;gap:2rem}}
+  @media (max-width:700px){
+    body{padding:1rem .75rem}.luxe-wrapper{padding:1.8rem 1.2rem}
+    .header{flex-direction:row;align-items:center;gap:1rem;justify-content:space-between}
+    .logo{border-left-width:2px;padding-left:.8rem;flex:1}
+    .logo-name{font-size:1rem;letter-spacing:.12em}
+    .logo-tagline{font-size:.55rem;letter-spacing:.2em}
+    .profile-photo-wrapper{width:80px;height:80px;padding:3px}
+    .tabs{gap:.1rem}.tab-btn{padding:.5rem .8rem;font-size:.72rem;letter-spacing:.08em}
+    .hero-sub{padding-left:1rem;font-size:1rem}
+    .blog-grid,.home-grid{grid-template-columns:1fr;gap:1.5rem}
+    .resume-glance{flex-direction:column;gap:1.5rem}
+    .footer{flex-direction:column;gap:.8rem;align-items:flex-start}
+    .resume-toolbar{flex-direction:column;align-items:stretch}
+    .toolbar-divider{display:none}.btn-tool{justify-content:center}
+  }
+  @media (max-width:380px){
+    .logo-name{font-size:.85rem}
+    .logo-tagline{font-size:.5rem}
+    .profile-photo-wrapper{width:65px;height:65px}
+    h1{font-size:2rem}
+    .tab-btn{padding:.4rem .55rem;font-size:.65rem}
+  }
+</style>
+</head>
+<body>
+<div class="luxe-wrapper">
+
+  <!-- HEADER with profile photo on the right -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-name">Raffiuddin Shaik</span>
+      <span class="logo-tagline">Senior Java Technical Lead · 12+ Years · FIX &amp; Event-Driven</span>
+    </div>
+    <div class="profile-photo-wrapper" title="Raffiuddin Shaik">
+      <!-- 👇 CHANGE THE src BELOW to your actual image filename -->
+      <img src="profile.jpg" alt="Raffiuddin Shaik" class="profile-photo">
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="home">Home</button>
+    <button class="tab-btn" data-tab="insights">Insights</button>
+    <button class="tab-btn" data-tab="resume">Resume</button>
+    <button class="tab-btn" data-tab="contact">Contact</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="tab-home" class="tab-content active">
+    <div class="resume-tag" style="margin-top:1.5rem;">Senior Java Technical Lead · 12+ years · FIX protocol · AI-assisted</div>
+    <h1>Hi, I'm Raffiuddin Shaik.</h1>
+    <p class="hero-sub">I build high-volume financial messaging systems, lead teams through production incidents, and write about the messy, human side of engineering. Currently at Citicorp, previously Virtusa and HCL.</p>
+    <div class="home-grid">
+      <div class="home-card"><h3>What I do</h3><p>Design resilient, low-latency services processing 400K+ deals/day at 12K messages/minute peak. Java 17, Spring Boot, Solace, QuickFIX/J.</p></div>
+      <div class="home-card"><h3>Where I lead</h3><p>AVP – Senior Technical Lead at Citicorp. Owning technical delivery, HLD/LLD, code reviews, and clean-code enforcement for FXPG.</p></div>
+      <div class="home-card"><h3>How I work</h3><p>AI-assisted development with GitHub Copilot, event-driven architecture, and a zero-incident mindset in 24×5 production environments.</p></div>
+    </div>
+    <div class="resume-glance">
+      <div class="resume-col"><h4>core stack</h4><ul><li>Java 8, 11, 17</li><li>Spring Boot / Integration</li><li>IBM MQ, TIBCO EMS, Solace, Kafka</li><li>Oracle, MySQL, JPA/Hibernate</li></ul></div>
+      <div class="resume-col"><h4>currently focused</h4><ul><li>QuickFIX/J &amp; FIX 4.2–5.0</li><li>Docker &amp; Kubernetes</li><li>GitHub Copilot workflows</li><li>Event-driven architecture</li></ul></div>
+      <div class="resume-col"><h4>philosophy</h4><ul><li>Zero incidents is possible</li><li>Simple &gt; clever</li><li>AI as a co-pilot, not autopilot</li><li>Own production, own the outcome</li></ul></div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div id="tab-insights" class="tab-content">
+    <h2 style="margin-top:1.5rem;">Insights</h2>
+    <div class="blog-grid">
+      <article class="blog-card"><div class="blog-date">March 12, 2025</div><h3 class="blog-title">Designing FX Deal Processor from scratch — 3 years, zero incidents</h3><p class="blog-excerpt">Java 17, Spring Boot, Solace, QuickFIX/J. How we built a system that processes 400K+ deals/day and sustains 12K messages/minute peak during market volatility.</p><a href="#" class="read-link">Read →</a></article>
+      <article class="blog-card"><div class="blog-date">February 28, 2025</div><h3 class="blog-title">How GitHub Copilot improved our velocity by 30%</h3><p class="blog-excerpt">Introducing AI-assisted development to a team of Java engineers. The wins, the scepticism, and the code consistency we gained.</p><a href="#" class="read-link">Read →</a></article>
+      <article class="blog-card"><div class="blog-date">January 15, 2025</div><h3 class="blog-title">FIX transformation gateway: XML, JSON, ORFQEntity to FIX</h3><p class="blog-excerpt">Building a bridge that enabled downstream settlement integration without upstream changes. Custom tags, rejections, and the 4.2–5.0 grind.</p><a href="#" class="read-link">Read →</a></article>
+      <article class="blog-card"><div class="blog-date">December 5, 2024</div><h3 class="blog-title">Sev1 at 3 a.m.: owning production incidents without burning out</h3><p class="blog-excerpt">On-call rotation, RCA, emergency fixes — and the mental toll of being the one who gets the call when the market moves.</p><a href="#" class="read-link">Read →</a></article>
+      <article class="blog-card"><div class="blog-date">November 18, 2024</div><h3 class="blog-title">Tuning JVM, GC, and threading for 12K messages/minute</h3><p class="blog-excerpt">Every millisecond counts. How we squeezed performance out of connection pools, queries, and garbage collection to sustain peak throughput.</p><a href="#" class="read-link">Read →</a></article>
+      <article class="blog-card"><div class="blog-date">October 2, 2024</div><h3 class="blog-title">Standardising four messaging systems: MQ, EMS, Solace, Kafka</h3><p class="blog-excerpt">DLQs, retries, replay mechanisms — and the abstraction layer that reduced integration time and simplified troubleshooting.</p><a href="#" class="read-link">Read →</a></article>
+    </div>
+  </div>
+
+  <!-- RESUME WORKSPACE -->
+  <div id="tab-resume" class="tab-content">
+    <h2 style="margin-top:1.5rem;">Resume Workspace</h2>
+    <div class="resume-toolbar">
+      <div class="file-upload-wrapper">
+        <button class="btn-tool">📎 Upload File</button>
+        <input type="file" id="resumeFileInput" accept=".txt,.md,.html,.htm,.json,.docx,.pdf">
+      </div>
+      <div class="toolbar-divider"></div>
+      <button class="btn-tool" id="btnLoadSample">↺ Load Sample</button>
+      <button class="btn-tool" id="btnClear">✕ Clear</button>
+    </div>
+    <div class="editor-container">
+      <div class="editor-pane">
+        <div class="pane-header"><span>Editor (Markdown supported)</span><span class="char-count" id="charCount">0 chars</span></div>
+        <textarea id="resumeEditor" spellcheck="false" placeholder="Paste or type your resume content here..."></textarea>
+      </div>
+      <div class="editor-pane">
+        <div class="pane-header"><span>Live Preview</span></div>
+        <div id="resumePreview"></div>
+      </div>
+    </div>
+    <div class="download-panel">
+      <h4>Download as</h4>
+      <div class="download-buttons">
+        <button class="btn-tool primary" id="dlPdf">⬇ PDF</button>
+        <button class="btn-tool primary" id="dlDoc">⬇ Word (.doc)</button>
+        <button class="btn-tool primary" id="dlHtml">⬇ HTML</button>
+        <button class="btn-tool primary" id="dlTxt">⬇ Plain Text</button>
+        <button class="btn-tool primary" id="dlMd">⬇ Markdown</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="tab-contact" class="tab-content">
+    <h2 style="margin-top:1.5rem;">Contact</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-item"><div class="contact-icon">@</div><div><div class="contact-label">Email</div><div class="contact-value"><a href="mailto:raffiuddin.cse@gmail.com">raffiuddin.cse@gmail.com</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">#</div><div><div class="contact-label">Phone</div><div class="contact-value"><a href="tel:+917358046489">+91-7358046489</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">⌂</div><div><div class="contact-label">Location</div><div class="contact-value">#45, Officers Colony Main Road,<br>Porur, Chennai – 600116</div></div></div>
+        <div class="contact-item"><div class="contact-icon">in</div><div><div class="contact-label">LinkedIn</div><div class="contact-value"><a href="#">linkedin.com/in/raffiuddin</a></div></div></div>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault();alert('Thank you — this is a demo form.');">
+        <div class="form-group"><label for="cname">Name</label><input type="text" id="cname" placeholder="Your name" required></div>
+        <div class="form-group"><label for="cemail">Email</label><input type="email" id="cemail" placeholder="you@example.com" required></div>
+        <div class="form-group"><label for="cmsg">Message</label><textarea id="cmsg" placeholder="Tell me about your project, role, or just say hello." required></textarea></div>
+        <button type="submit" class="btn-submit">Send message</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>© 2025 Raffiuddin Shaik · Senior Java Technical Lead</span>
+    <span><a href="mailto:raffiuddin.cse@gmail.com">raffiuddin.cse@gmail.com</a> · <a href="#">+91-7358046489</a> · <a href="#">Chennai, India</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ============ TAB SWITCHING ============ */
+  var tabButtons = document.querySelectorAll('.tab-btn');
+  var tabContents = {
+    home: document.getElementById('tab-home'),
+    insights: document.getElementById('tab-insights'),
+    resume: document.getElementById('tab-resume'),
+    contact: document.getElementById('tab-contact')
+  };
+  function activateTab(id){
+    tabButtons.forEach(function(b){ b.classList.toggle('active', b.dataset.tab === id); });
+    Object.keys(tabContents).forEach(function(k){ tabContents[k].classList.toggle('active', k === id); });
+  }
+  tabButtons.forEach(function(b){ b.addEventListener('click', function(){ activateTab(b.dataset.tab); }); });
+  activateTab('home');
+
+  /* ============ TOAST ============ */
+  var toastEl = document.getElementById('toast');
+  var toastTimeout;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(function(){ toastEl.classList.remove('show'); }, 2600);
+  }
+
+  /* ============ MARKDOWN PARSER ============ */
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function inlineFormat(text){
+    text = text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    text = text.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<em>$2</em>');
+    text = text.replace(/`([^`]+)`/g,'<code>$1</code>');
+    return text;
+  }
+  function mdToHtml(md){
+    if(!md || !md.trim()){
+      return '<p style="color:#5f6b7a;font-style:italic;">Preview will appear here…</p>';
+    }
+    var lines = md.replace(/\r\n/g,'\n').split('\n');
+    var html = '';
+    var inList = false;
+    var inPara = false;
+    function closeList(){ if(inList){ html += '</ul>'; inList = false; } }
+    function closePara(){ if(inPara){ html += '</p>'; inPara = false; } }
+
+    for(var i=0;i<lines.length;i++){
+      var line = lines[i].replace(/\s+$/,'');
+      if(!line.trim()){ closeList(); closePara(); continue; }
+      if(/^\s*([-*_])\1{2,}\s*$/.test(line)){ closeList(); closePara(); html += '<hr>'; continue; }
+      var hMatch = line.match(/^\s*(#{1,6})\s+(.*)$/);
+      if(hMatch){
+        closeList(); closePara();
+        var level = hMatch[1].length;
+        var text = inlineFormat(escapeHtml(hMatch[2].trim()));
+        var tag = level <= 2 ? 'h2' : (level === 3 ? 'h3' : 'h4');
+        html += '<' + tag + '>' + text + '</' + tag + '>';
+        continue;
+      }
+      var liMatch = line.match(/^\s*[-*+]\s+(.*)$/);
+      if(liMatch){
+        closePara();
+        if(!inList){ html += '<ul>'; inList = true; }
+        html += '<li>' + inlineFormat(escapeHtml(liMatch[1].trim())) + '</li>';
+        continue;
+      }
+      closeList();
+      if(!inPara){ html += '<p>'; inPara = true; } else { html += ' '; }
+      html += inlineFormat(escapeHtml(line.trim()));
+    }
+    closeList(); closePara();
+    return html;
+  }
+
+  /* ============ EDITOR ============ */
+  var editor = document.getElementById('resumeEditor');
+  var preview = document.getElementById('resumePreview');
+  var charCount = document.getElementById('charCount');
+  var fileInput = document.getElementById('resumeFileInput');
+
+  var SAMPLE_RESUME = [
+    '# Raffiuddin Shaik',
+    'Senior Java Technical Lead · 12+ years · FIX protocol · AI-assisted',
+    '',
+    '## Contact',
+    '- Email: raffiuddin.cse@gmail.com',
+    '- Phone: +91-7358046489',
+    '- Location: #45, Officers Colony Main Road, Porur, Chennai – 600116',
+    '',
+    '## Professional Summary',
+    'Senior Java Technical Lead with 12+ years of experience in enterprise application development, architecture, and production ownership. Specializes in high-volume financial messaging, FIX protocol, and event-driven architectures in investment banking. Leverages AI-assisted development (GitHub Copilot) to accelerate delivery. Proven track record of designing resilient, low-latency services processing 400K+ deals/day at 12K messages/minute peak in 24x5 production-critical environments.',
+    '',
+    '## Core Competencies',
+    '- Languages: Java 8, 11, 17 (OOP, Multithreading, Collections, Streams)',
+    '- Frameworks: Spring Boot, Spring Core, Spring Integration, Struts, Servlets, JSP',
+    '- Messaging: IBM MQ, TIBCO EMS, Solace, Apache Kafka, JMS',
+    '- Databases: Oracle, MySQL, JDBC, JPA/Hibernate',
+    '- CI/CD & Tools: Maven, Gradle, TeamCity, uDeploy, Git, GitHub, Splunk',
+    '- Containers: Docker, Kubernetes (Working Knowledge)',
+    '- AI Tools: GitHub Copilot, AI-assisted code generation, test automation',
+    '',
+    '## Professional Experience',
+    '',
+    '### AVP – Senior Technical Lead | CITICorp Services Pvt. Ltd. | Nov 2020 – Present',
+    "FXPG (FX Product Gateway) - Citibank's FX trade gateway processing 400K+ deals/day.",
+    '',
+    '**Key Responsibilities:**',
+    '- Lead a team of developers; own technical delivery, HLD/LLD, code reviews, and clean-code enforcement',
+    '- Design new services from scratch using Java 17, Spring Boot, Solace, and QuickFIX/J',
+    '- Leverage GitHub Copilot for accelerated coding, unit test generation, and prototyping',
+    '- Build event-driven services on IBM MQ, EMS, Solace, and Kafka with retry, DLQ, and replay mechanisms',
+    '- Parse, validate, transform, and generate FIX messages (4.2–5.0); handle custom tags and rejections',
+    '- Own Sev1/Sev2 incidents, on-call rotation, RCA, emergency fixes, and production deployments',
+    '- Tune JVM, GC, connection pools, threading, and queries to sustain 12K msg/min throughput',
+    '',
+    '**Key Achievements:**',
+    '- Designed FX Deal Processor from scratch - 3+ years with zero incidents in production',
+    '- Introduced GitHub Copilot to team workflow - improved development velocity by 30%',
+    '- Standardized messaging abstraction across MQ, EMS, Solace, Kafka',
+    '- Built FIX transformation gateway converting XML/JSON/ORFQEntity to FIX',
+    '- Optimized performance to sustain 12K messages/minute peak during market volatility',
+    '',
+    '### Senior Software Engineer | Virtusa Polaris Pvt. Ltd. | Mar 2017 – Nov 2020',
+    'FXPG (FX Product Gateway) - Same Citibank FX platform.',
+    '- Developed and maintained core trade processing services with JMS, MQ, and EMS',
+    '- Implemented validation and regulatory enrichment logic',
+    '- Mentored junior developers and conducted code reviews',
+    '- Handled production issues and timely fixes',
+    '',
+    '### Java Developer | HCL Technologies Ltd. | Feb 2016 – Jul 2016',
+    'DHL - Warehouse Management System',
+    '- Developed Java SWT desktop component for warehouse management',
+    '- Worked with JDBC, Oracle, and Collections',
+    '',
+    '### Java Developer | StellarITApps | May 2013 – Dec 2014',
+    'Stellar Education Management System (SEMS)',
+    '- Built desktop-based system with Java Swing, JPA, JDBC, MySQL 5.0',
+    '- Generated reports using iReport 5.6.0',
+    '- Modules: Admin, Student, Exam, Attendance, Transport, Fee, SMS, Reports',
+    '',
+    '## Education',
+    '- B.Tech (CSE) | Vaishnavi Inst. of Technology, Tirupati | 2008–2012 | 66.77%',
+    '- Intermediate (MPC) | State Board, A.P. | 2006–2008 | 83.30%',
+    '- S.S.C | Board of Secondary Education, A.P. | 2005–2006 | 78.83%',
+    '',
+    '## Personal Information',
+    '- DOB: 24th June 1990',
+    '- Nationality: Indian',
+    '- Languages: English, Hindi, Urdu, Telugu',
+    '',
+    '## Declaration',
+    'I hereby declare that the above information is true to the best of my knowledge.',
+    'Raffiuddin Shaik',
+    'Place: Chennai'
+  ].join('\n');
+
+  function updateAll(){
+    var val = editor.value;
+    charCount.textContent = val.length + ' chars';
+    preview.innerHTML = mdToHtml(val);
+  }
+  editor.addEventListener('input', updateAll);
+
+  document.getElementById('btnLoadSample').addEventListener('click', function(){
+    editor.value = SAMPLE_RESUME;
+    updateAll();
+    showToast('Sample resume loaded');
+  });
+
+  document.getElementById('btnClear').addEventListener('click', function(){
+    if(editor.value.trim() && !confirm('Clear the editor? This cannot be undone.')) return;
+    editor.value = '';
+    updateAll();
+    showToast('Editor cleared');
+  });
+
+  /* ============ FILE UPLOAD ============ */
+  fileInput.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var name = file.name.toLowerCase();
+    var reader = new FileReader();
+    reader.onerror = function(){ showToast('Error reading file'); };
+    reader.onload = function(ev){
+      var content = ev.target.result;
+      if(name.endsWith('.html') || name.endsWith('.htm')){
+        var tmp = document.createElement('div');
+        tmp.innerHTML = content;
+        editor.value = (tmp.textContent || tmp.innerText || '').replace(/\n{3,}/g,'\n\n').trim();
+      } else if(name.endsWith('.docx')){
+        editor.value = extractReadableText(content) || '[Could not extract text from .docx — paste manually]';
+      } else if(name.endsWith('.pdf')){
+        showToast('PDF upload: paste text manually for best results');
+        editor.value = '[PDF uploaded — text extraction limited. Please paste content manually.]';
+      } else {
+        editor.value = content;
+      }
+      updateAll();
+      showToast('File loaded: ' + file.name);
+    };
+    if(name.endsWith('.docx') || name.endsWith('.pdf')){
+      reader.readAsArrayBuffer(file);
+    } else {
+      reader.readAsText(file);
+    }
+  });
+
+  function extractReadableText(buffer){
+    var bytes = new Uint8Array(buffer);
+    var result = '';
+    var current = '';
+    for(var i=0;i<bytes.length;i++){
+      var b = bytes[i];
+      if(b >= 32 && b <= 126){
+        current += String.fromCharCode(b);
+      } else {
+        if(current.length > 3 && (/[a-zA-Z]{3,}/.test(current) || /[0-9@.]{4,}/.test(current))){
+          result += current + '\n';
+        }
+        current = '';
+      }
+    }
+    return result.replace(/\n{3,}/g,'\n\n').trim();
+  }
+
+  /* ============ STYLED HTML BUILDER ============ */
+  function buildStyledHtml(mdContent){
+    var body = mdToHtml(mdContent);
+    var css = [
+      "body{font-family:'Segoe UI',Calibri,Arial,sans-serif;max-width:800px;margin:2rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.6;}",
+      "h1{font-size:1.8rem;border-bottom:2px solid #333;padding-bottom:0.4rem;margin-bottom:0.4rem;}",
+      "h2{font-size:1.15rem;margin-top:1.5rem;border-bottom:1px solid #ccc;padding-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.06em;}",
+      "h3{font-size:1.02rem;margin-top:1.1rem;color:#222;}",
+      "h4{font-size:0.95rem;margin-top:0.9rem;color:#333;}",
+      "p{margin-bottom:0.7rem;}",
+      "ul{padding-left:1.2rem;margin-bottom:0.8rem;}",
+      "li{margin-bottom:0.25rem;}",
+      "hr{border:none;border-top:1px solid #ddd;margin:1.2rem 0;}",
+      "strong{color:#000;}",
+      "code{background:#f0f0f0;padding:1px 4px;font-size:0.9em;}",
+      "@media print{body{margin:0;padding:0.5in;max-width:none;}}"
+    ].join('');
+    return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Raffiuddin Shaik — Resume</title>\n<style>' + css + '</style>\n</head>\n<body>\n' + body + '\n</body>\n</html>';
+  }
+
+  /* ============ DOWNLOAD HELPERS ============ */
+  function triggerDownload(blob, filename){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 500);
+    showToast('Downloaded: ' + filename);
+  }
+
+  function downloadTxt(){
+    triggerDownload(new Blob([editor.value], {type:'text/plain;charset=utf-8'}), 'raffiuddin-shaik-resume.txt');
+  }
+  function downloadMd(){
+    triggerDownload(new Blob([editor.value], {type:'text/markdown;charset=utf-8'}), 'raffiuddin-shaik-resume.md');
+  }
+  function downloadHtml(){
+    triggerDownload(new Blob([buildStyledHtml(editor.value)], {type:'text/html;charset=utf-8'}), 'raffiuddin-shaik-resume.html');
+  }
+  function downloadDoc(){
+    var html = buildStyledHtml(editor.value);
+    var wordHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
+                   'xmlns:w="urn:schemas-microsoft-com:office:word" ' +
+                   'xmlns="http://www.w3.org/TR/REC-html40">' +
+                   html.replace(/^<!DOCTYPE html>\s*<html[^>]*>\s*/i,'');
+    triggerDownload(new Blob(['\ufeff' + wordHtml], {type:'application/msword;charset=utf-8'}), 'raffiuddin-shaik-resume.doc');
+  }
+  function downloadPdf(){
+    var body = mdToHtml(editor.value);
+    var css = [
+      "@page{size:A4;margin:18mm 16mm;}",
+      "body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:#1a1a1a;line-height:1.55;font-size:11pt;margin:0;}",
+      "h1{font-size:20pt;border-bottom:2px solid #333;padding-bottom:4pt;margin:0 0 4pt;}",
+      "h2{font-size:13pt;margin-top:14pt;border-bottom:1px solid #ccc;padding-bottom:2pt;text-transform:uppercase;letter-spacing:0.06em;}",
+      "h3{font-size:11.5pt;margin-top:10pt;color:#222;}",
+      "h4{font-size:11pt;margin-top:8pt;color:#333;}",
+      "p{margin:0 0 6pt;}",
+      "ul{padding-left:16pt;margin:0 0 8pt;}",
+      "li{margin-bottom:2pt;}",
+      "hr{border:none;border-top:1px solid #ddd;margin:10pt 0;}",
+      "strong{color:#000;}"
+    ].join('');
+    var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>Raffiuddin Shaik — Resume</title>' +
+               '<style>' + css + '</style></head><body>' + body + '</body></html>';
+    var win = window.open('', '_blank', 'width=820,height=900');
+    if(!win){ showToast('Allow pop-ups to export as PDF'); return; }
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+    var doPrint = function(){
+      try{ win.focus(); win.print(); showToast('Print dialog opened — choose "Save as PDF"'); }
+      catch(err){ showToast('Could not open print dialog'); }
+    };
+    if(win.document.readyState === 'complete'){ setTimeout(doPrint, 300); }
+    else { win.onload = function(){ setTimeout(doPrint, 300); }; }
+  }
+
+  document.getElementById('dlTxt').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadTxt(); });
+  document.getElementById('dlMd').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadMd(); });
+  document.getElementById('dlHtml').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadHtml(); });
+  document.getElementById('dlDoc').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadDoc(); });
+  document.getElementById('dlPdf').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadPdf(); });
+
+  /* ============ AUTO-LOAD SAMPLE ============ */
+  var resumeInitialized = false;
+  document.querySelector('[data-tab="resume"]').addEventListener('click', function(){
+    if(!resumeInitialized && !editor.value.trim()){
+      editor.value = SAMPLE_RESUME;
+      updateAll();
+      resumeInitialized = true;
+    }
+  });
+
+  updateAll();
+})();
+</script>
+</body>
+</html>

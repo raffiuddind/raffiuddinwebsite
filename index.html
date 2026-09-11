@@ -25,53 +25,15 @@
   h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:350;border-bottom:1px solid #2c353f;padding-bottom:.6rem;margin-bottom:2rem;display:inline-block;color:#d6deea}
   h3{font-size:1.35rem;font-weight:400;margin-bottom:.5rem;color:#e0e6f0}
   h4{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#7a8b9e;margin-bottom:1.2rem;font-weight:400;border-bottom:1px solid #21272e;padding-bottom:.6rem}
-
-  /* ---------- HEADER WITH PROFILE PHOTO ---------- */
-  .header{
-    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
-    margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid #21272e;
-    gap:1.5rem;
-  }
+  .header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid #21272e;gap:1.5rem}
   .logo{display:flex;flex-direction:column;gap:.15rem;border-left:3px solid #5f6b7a;padding-left:1rem}
   .logo-name{font-size:1.35rem;letter-spacing:.18em;text-transform:uppercase;color:#eef2f8;line-height:1.2}
   .logo-tagline{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#7a8b9e;font-weight:300;font-family:'Inter',sans-serif}
-
-  .profile-photo-wrapper{
-    position:relative;
-    width:110px;
-    height:110px;
-    flex-shrink:0;
-    border:2px solid #3e4a56;
-    padding:4px;
-    background:rgba(10,14,19,.8);
-    transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
-    box-shadow:0 0 0 1px #1a1f26,0 8px 24px -8px rgba(0,0,0,.7);
-  }
-  .profile-photo-wrapper:hover{
-    border-color:#5f6b7a;
-    box-shadow:0 0 0 1px #252c34,0 12px 30px -8px rgba(0,0,0,.9);
-    transform:translateY(-2px);
-  }
-  .profile-photo-wrapper::after{
-    content:"";
-    position:absolute;
-    inset:-1px;
-    border:1px solid rgba(255,255,255,.03);
-    pointer-events:none;
-  }
-  .profile-photo{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center top;
-    display:block;
-    filter:contrast(1.03) brightness(1.02);
-    transition:filter .3s ease;
-  }
-  .profile-photo-wrapper:hover .profile-photo{
-    filter:contrast(1.06) brightness(1.05);
-  }
-
+  .profile-photo-wrapper{position:relative;width:110px;height:110px;flex-shrink:0;border:2px solid #3e4a56;padding:4px;background:rgba(10,14,19,.8);transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;box-shadow:0 0 0 1px #1a1f26,0 8px 24px -8px rgba(0,0,0,.7)}
+  .profile-photo-wrapper:hover{border-color:#5f6b7a;box-shadow:0 0 0 1px #252c34,0 12px 30px -8px rgba(0,0,0,.9);transform:translateY(-2px)}
+  .profile-photo-wrapper::after{content:"";position:absolute;inset:-1px;border:1px solid rgba(255,255,255,.03);pointer-events:none}
+  .profile-photo{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:contrast(1.03) brightness(1.02);transition:filter .3s ease}
+  .profile-photo-wrapper:hover .profile-photo{filter:contrast(1.06) brightness(1.05)}
   .tabs{display:flex;gap:.25rem;margin-top:.5rem;width:100%;border-bottom:1px solid #1c2229;padding-bottom:.5rem;flex-wrap:wrap}
   .tab-btn{background:transparent;border:1px solid transparent;color:#8a9aa8;font-family:'Inter',sans-serif;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.4rem;cursor:pointer;transition:all .25s ease;position:relative}
   .tab-btn:hover{color:#e6e9f0;border-color:#2c353f;background:rgba(255,255,255,.02)}
@@ -80,7 +42,6 @@
   .tab-content{display:none;animation:fadeIn .35s ease}
   .tab-content.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
   .hero-sub{font-size:1.15rem;color:#9aa8b9;max-width:750px;font-weight:300;border-left:2px solid #3e4a56;padding-left:1.5rem;margin-top:.5rem;margin-bottom:2.5rem}
   .resume-tag{display:inline-block;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#8494a6;border:1px solid #2e3842;padding:.3rem 1rem;background:#0f1319;margin-bottom:1rem}
   .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin:2.5rem 0 1.5rem}
@@ -150,7 +111,6 @@
   .footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #1c2229;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;font-size:.85rem;color:#6b7b8c;letter-spacing:.03em}
   .footer a{color:#8a9aa8;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
   .footer a:hover{border-bottom-color:#5f6b7a;color:#cbd5e1}
-
   @media (max-width:1000px){.editor-container{grid-template-columns:1fr}#resumeEditor,#resumePreview{min-height:380px}}
   @media (max-width:800px){.contact-container{grid-template-columns:1fr;gap:2rem}}
   @media (max-width:700px){
@@ -169,25 +129,20 @@
     .toolbar-divider{display:none}.btn-tool{justify-content:center}
   }
   @media (max-width:380px){
-    .logo-name{font-size:.85rem}
-    .logo-tagline{font-size:.5rem}
+    .logo-name{font-size:.85rem}.logo-tagline{font-size:.5rem}
     .profile-photo-wrapper{width:65px;height:65px}
-    h1{font-size:2rem}
-    .tab-btn{padding:.4rem .55rem;font-size:.65rem}
+    h1{font-size:2rem}.tab-btn{padding:.4rem .55rem;font-size:.65rem}
   }
 </style>
 </head>
 <body>
 <div class="luxe-wrapper">
-
-  <!-- HEADER with profile photo on the right -->
   <header class="header">
     <div class="logo">
       <span class="logo-name">Raffiuddin Shaik</span>
       <span class="logo-tagline">Senior Java Technical Lead · 12+ Years · FIX &amp; Event-Driven</span>
     </div>
     <div class="profile-photo-wrapper" title="Raffiuddin Shaik">
-      <!-- 👇 CHANGE THE src BELOW to your actual image filename -->
       <img src="profile.jpg" alt="Raffiuddin Shaik" class="profile-photo">
     </div>
   </header>
@@ -199,7 +154,6 @@
     <button class="tab-btn" data-tab="contact">Contact</button>
   </div>
 
-  <!-- HOME -->
   <div id="tab-home" class="tab-content active">
     <div class="resume-tag" style="margin-top:1.5rem;">Senior Java Technical Lead · 12+ years · FIX protocol · AI-assisted</div>
     <h1>Hi, I'm Raffiuddin Shaik.</h1>
@@ -216,7 +170,6 @@
     </div>
   </div>
 
-  <!-- INSIGHTS -->
   <div id="tab-insights" class="tab-content">
     <h2 style="margin-top:1.5rem;">Insights</h2>
     <div class="blog-grid">
@@ -229,7 +182,6 @@
     </div>
   </div>
 
-  <!-- RESUME WORKSPACE -->
   <div id="tab-resume" class="tab-content">
     <h2 style="margin-top:1.5rem;">Resume Workspace</h2>
     <div class="resume-toolbar">
@@ -263,7 +215,6 @@
     </div>
   </div>
 
-  <!-- CONTACT -->
   <div id="tab-contact" class="tab-content">
     <h2 style="margin-top:1.5rem;">Contact</h2>
     <div class="contact-container">
@@ -521,7 +472,7 @@
     return result.replace(/\n{3,}/g,'\n\n').trim();
   }
 
-  /* ============ STYLED HTML BUILDER ============ */
+  /* ============ STYLED HTML BUILDER (for HTML + DOC) ============ */
   function buildStyledHtml(mdContent){
     var body = mdToHtml(mdContent);
     var css = [
@@ -574,34 +525,78 @@
                    html.replace(/^<!DOCTYPE html>\s*<html[^>]*>\s*/i,'');
     triggerDownload(new Blob(['\ufeff' + wordHtml], {type:'application/msword;charset=utf-8'}), 'raffiuddin-shaik-resume.doc');
   }
+
+  /* ============================================================
+     FIXED PDF EXPORT
+     - Uses a hidden iframe so the browser's native print dialog opens.
+     - Uses tight A4 print CSS so the resume fits in ~2 pages.
+     ============================================================ */
   function downloadPdf(){
     var body = mdToHtml(editor.value);
-    var css = [
-      "@page{size:A4;margin:18mm 16mm;}",
-      "body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:#1a1a1a;line-height:1.55;font-size:11pt;margin:0;}",
-      "h1{font-size:20pt;border-bottom:2px solid #333;padding-bottom:4pt;margin:0 0 4pt;}",
-      "h2{font-size:13pt;margin-top:14pt;border-bottom:1px solid #ccc;padding-bottom:2pt;text-transform:uppercase;letter-spacing:0.06em;}",
-      "h3{font-size:11.5pt;margin-top:10pt;color:#222;}",
-      "h4{font-size:11pt;margin-top:8pt;color:#333;}",
-      "p{margin:0 0 6pt;}",
-      "ul{padding-left:16pt;margin:0 0 8pt;}",
-      "li{margin-bottom:2pt;}",
-      "hr{border:none;border-top:1px solid #ddd;margin:10pt 0;}",
-      "strong{color:#000;}"
+
+    // Compact print stylesheet — tuned for ~2 A4 pages
+    var printCss = [
+      "@page{size:A4;margin:12mm 14mm;}",
+      "*{box-sizing:border-box;}",
+      "html,body{margin:0;padding:0;background:#fff;}",
+      "body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:9.5pt;line-height:1.32;}",
+      "h1{font-size:15pt;font-weight:700;margin:0 0 2pt;padding:0 0 3pt;border-bottom:1.2pt solid #222;color:#000;line-height:1.15;}",
+      "h2{font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:8pt 0 3pt;padding-bottom:1pt;border-bottom:0.6pt solid #999;color:#111;page-break-after:avoid;}",
+      "h3{font-size:9.5pt;font-weight:700;margin:6pt 0 1pt;color:#111;page-break-after:avoid;}",
+      "h4{font-size:9pt;font-weight:600;margin:4pt 0 1pt;color:#333;page-break-after:avoid;}",
+      "p{margin:0 0 3pt;color:#222;}",
+      "ul{margin:0 0 3pt;padding-left:12pt;list-style:none;}",
+      "ul li{position:relative;padding-left:10pt;margin:0 0 1pt;color:#222;page-break-inside:avoid;}",
+      "ul li::before{content:'•';position:absolute;left:0;color:#555;font-weight:700;}",
+      "hr{border:none;border-top:0.5pt solid #ccc;margin:5pt 0;}",
+      "strong{color:#000;font-weight:700;}",
+      "em{color:#333;font-style:italic;}",
+      "code{background:#f2f2f2;padding:0 2pt;font-size:8.5pt;font-family:'Consolas','Courier New',monospace;}",
+      "a{color:#111;text-decoration:none;}",
+      "h2,h3,h4{page-break-after:avoid;}",
+      "li,p{orphans:2;widows:2;}"
     ].join('');
-    var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>Raffiuddin Shaik — Resume</title>' +
-               '<style>' + css + '</style></head><body>' + body + '</body></html>';
-    var win = window.open('', '_blank', 'width=820,height=900');
-    if(!win){ showToast('Allow pop-ups to export as PDF'); return; }
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
+
+    var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8">' +
+               '<title>Raffiuddin Shaik — Resume</title>' +
+               '<style>' + printCss + '</style></head><body>' + body + '</body></html>';
+
+    // Use a hidden iframe — avoids popup blockers and produces a real PDF via "Save as PDF"
+    var oldIframe = document.getElementById('__pdf_iframe__');
+    if(oldIframe) oldIframe.parentNode.removeChild(oldIframe);
+
+    var iframe = document.createElement('iframe');
+    iframe.id = '__pdf_iframe__';
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
     var doPrint = function(){
-      try{ win.focus(); win.print(); showToast('Print dialog opened — choose "Save as PDF"'); }
-      catch(err){ showToast('Could not open print dialog'); }
+      try{
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        showToast('Print dialog opened — choose "Save as PDF"');
+      }catch(err){
+        showToast('Could not open print dialog. Try Chrome or Edge.');
+      } finally {
+        setTimeout(function(){
+          if(iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        }, 4000);
+      }
     };
-    if(win.document.readyState === 'complete'){ setTimeout(doPrint, 300); }
-    else { win.onload = function(){ setTimeout(doPrint, 300); }; }
+
+    // Give the iframe a moment to render, then print
+    setTimeout(doPrint, 350);
   }
 
   document.getElementById('dlTxt').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadTxt(); });

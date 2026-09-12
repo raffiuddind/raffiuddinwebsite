@@ -6,18 +6,8 @@
 <title>Raffiuddin Shaik · Software Engineer</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:#0b0e14;
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    color:#e6e9f0;line-height:1.6;display:flex;flex-direction:column;align-items:center;
-    min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased;
-  }
-  .luxe-wrapper{
-    max-width:1200px;width:100%;background:rgba(18,22,28,.75);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:2px solid #2c353f;box-shadow:0 0 0 1px #1a1f26,0 20px 40px -15px rgba(0,0,0,.8);
-    padding:2.5rem 2rem;transition:border-color .3s ease,box-shadow .3s ease;position:relative;
-  }
+  body{background:#0b0e14;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#e6e9f0;line-height:1.6;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased}
+  .luxe-wrapper{max-width:1200px;width:100%;background:rgba(18,22,28,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2px solid #2c353f;box-shadow:0 0 0 1px #1a1f26,0 20px 40px -15px rgba(0,0,0,.8);padding:2.5rem 2rem;transition:border-color .3s ease,box-shadow .3s ease;position:relative}
   .luxe-wrapper:hover{border-color:#3e4a56;box-shadow:0 0 0 1px #252c34,0 25px 50px -12px rgba(0,0,0,.9)}
   .luxe-wrapper::before{content:"";position:absolute;inset:-1px;border:1px solid rgba(255,255,255,.02);pointer-events:none;z-index:2}
   h1,h2,h3,h4,.logo{font-family:'Space Grotesk','Inter',sans-serif;font-weight:400;letter-spacing:.02em;color:#f0f3fa}
@@ -116,7 +106,6 @@
   .pagecount-hint{font-size:0.78rem;color:#7a8b9e;letter-spacing:0.05em;max-width:340px;line-height:1.5;border-left:1px solid #2c353f;padding-left:1.2rem}
   .pagecount-hint em{color:#b1bfce;font-style:normal;font-weight:500}
 
-  /* ============ CONVERT TAB ============ */
   .convert-intro{font-size:1rem;color:#9aa8b9;font-weight:300;max-width:780px;border-left:2px solid #3e4a56;padding-left:1.2rem;margin-bottom:2rem}
   .convert-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
   .convert-panel{border:1px solid #2c353f;background:rgba(10,14,19,.6);padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem}
@@ -128,7 +117,9 @@
   .convert-dropzone .dz-title{font-size:0.95rem;color:#d2dce8;margin-bottom:.3rem}
   .convert-dropzone .dz-sub{font-size:0.78rem;color:#7a8b9e;letter-spacing:.05em}
   .convert-filelist{display:flex;flex-direction:column;gap:.6rem}
-  .convert-file{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border:1px solid #2c353f;background:rgba(15,19,24,.5);font-size:.85rem}
+  .convert-file{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border:1px solid #2c353f;background:rgba(15,19,24,.5);font-size:.85rem;cursor:pointer;transition:border-color .2s}
+  .convert-file:hover{border-color:#4f5d6b}
+  .convert-file.active{border-color:#5f6b7a;background:rgba(95,107,122,.08)}
   .convert-file-info{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1}
   .convert-file-name{color:#eef2f8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400}
   .convert-file-meta{font-size:.72rem;color:#7a8b9e;letter-spacing:.05em}
@@ -153,7 +144,6 @@
   .convert-preview strong{color:#eef2f8}
   .convert-preview a{color:#b9c7d6}
 
-  /* ============ COMPRESS TAB ============ */
   .compress-intro{font-size:1rem;color:#9aa8b9;font-weight:300;max-width:820px;border-left:2px solid #3e4a56;padding-left:1.2rem;margin-bottom:2rem}
   .compress-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
   .compress-panel{border:1px solid #2c353f;background:rgba(10,14,19,.6);padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem}
@@ -172,7 +162,6 @@
   .compress-file-badge{font-size:.65rem;padding:.15rem .5rem;border:1px solid #3e4a56;background:rgba(95,107,122,.12);color:#b9c7d6;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
   .compress-file-remove{background:transparent;border:1px solid #3e4a56;color:#b9c7d6;width:1.8rem;height:1.8rem;cursor:pointer;font-size:.85rem;line-height:1;transition:all .2s ease;flex-shrink:0}
   .compress-file-remove:hover{border-color:#8a4040;color:#ffb3b3;background:rgba(138,64,64,.15)}
-
   .compress-controls{display:flex;flex-direction:column;gap:1rem}
   .control-row{display:flex;flex-direction:column;gap:.4rem}
   .control-row label{font-size:0.75rem;letter-spacing:.15em;text-transform:uppercase;color:#7a8b9e}
@@ -189,16 +178,13 @@
   .action-btn.primary{border-color:#5f6b7a;background:rgba(95,107,122,.18);color:#eef2f8}
   .action-btn.primary:hover{background:rgba(95,107,122,.32)}
   .action-btn:disabled{opacity:.35;cursor:not-allowed}
-
   .compress-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-top:.5rem}
   .stat-box{padding:.9rem 1rem;border:1px solid #2c353f;background:rgba(15,19,24,.5);text-align:center}
   .stat-num{font-family:'Space Grotesk','Inter',sans-serif;font-size:1.2rem;color:#eef2f8;font-weight:400;line-height:1.1}
   .stat-lbl{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#7a8b9e;margin-top:.35rem}
-
   .compress-status{padding:1rem 1.2rem;border:1px solid #2c353f;background:rgba(10,14,19,.5);font-size:.85rem;color:#8a9aa8;line-height:1.55;min-height:3rem;display:flex;align-items:center;gap:.6rem}
   .compress-status.ok{color:#b8e0c4;border-color:#4f7a5c;background:rgba(79,122,92,.12)}
   .compress-status.err{color:#ffb3b3;border-color:#8a4040;background:rgba(138,64,64,.12)}
-
   .compress-note{font-size:0.78rem;color:#7a8b9e;letter-spacing:.03em;line-height:1.55;border-left:2px solid #2c353f;padding-left:.8rem}
 
   .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1a1f26;border:1px solid #4f5d6b;color:#eef2f8;padding:.9rem 1.8rem;font-size:.85rem;letter-spacing:.08em;transition:transform .35s ease;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.6);max-width:80vw;text-align:center}
@@ -381,7 +367,7 @@
     </div>
   </div>
 
-  <!-- ============ COMPRESS TAB ============ -->
+  <!-- COMPRESS -->
   <div id="tab-compress" class="tab-content">
     <h2 style="margin-top:1.5rem;">Compress &amp; Decompress</h2>
     <p class="compress-intro">
@@ -389,7 +375,6 @@
     </p>
 
     <div class="compress-grid">
-      <!-- LEFT: UPLOAD + CONTROLS -->
       <div class="compress-panel">
         <h3>1 · Add files</h3>
         <div class="compress-dropzone" id="compressDropzone">
@@ -402,7 +387,6 @@
         <div class="compress-actions">
           <button class="btn-tool" id="compressClearAll" disabled>✕ Clear all</button>
         </div>
-
         <h3 style="margin-top:1.4rem">2 · Options</h3>
         <div class="compress-controls">
           <div class="control-row">
@@ -429,17 +413,14 @@
         </div>
       </div>
 
-      <!-- RIGHT: ACTIONS + RESULT -->
       <div class="compress-panel">
         <h3>3 · Run</h3>
         <div class="action-row">
           <button class="action-btn primary" id="compressRun" disabled>⬇ Compress</button>
           <button class="action-btn" id="compressReset" disabled>↺ Reset</button>
         </div>
-
         <h3 style="margin-top:1.4rem">Result</h3>
         <div class="compress-status" id="compressStatus">Add files to get started.</div>
-
         <div class="compress-stats">
           <div class="stat-box">
             <div class="stat-num" id="statOriginal">—</div>
@@ -454,9 +435,8 @@
             <div class="stat-lbl">Saved</div>
           </div>
         </div>
-
         <div class="compress-note" id="compressNote">
-          Tip: For maximum savings on mixed files, choose <em>ZIP</em> with level 9. For a single large text/JSON/log file, try <em>GZIP</em> or <em>DEFLATE</em> — they often beat ZIP on size.
+          Tip: For maximum savings on mixed files, choose <em>ZIP</em> with level 9. For a single large text/JSON/log file, try <em>GZIP</em> or <em>DEFLATE</em>.
         </div>
       </div>
     </div>
@@ -521,14 +501,32 @@
     toastTimeout = setTimeout(function(){ toastEl.classList.remove('show'); }, 2800);
   }
 
-  /* ============================================================
-     MARKDOWN PARSER
-     ============================================================ */
+  /* ============ SHARED HELPERS ============ */
   function escapeHtml(str){
     return String(str)
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
+  function fmtBytes(n){
+    if(n < 1024) return n + ' B';
+    if(n < 1048576) return (n/1024).toFixed(1) + ' KB';
+    return (n/1048576).toFixed(2) + ' MB';
+  }
+  function fileExt(name){
+    var i = name.lastIndexOf('.');
+    return i >= 0 ? name.slice(i+1).toLowerCase() : '';
+  }
+  function triggerDownload(blob, filename){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename; a.style.display = 'none';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
+    showToast('Downloaded: ' + filename);
+  }
+  function baseOut(name, ext){ return name.replace(/\.[^.]+$/, '') + '.' + ext; }
+
+  /* ============ MARKDOWN PARSER ============ */
   function inlineFormat(text){
     text = text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
     text = text.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<em>$2</em>');
@@ -701,7 +699,6 @@
   var MM_TO_PX = 96 / 25.4;
   function PRINTABLE_WIDTH_PX(){ return Math.round((210 - 24) * MM_TO_PX); }
   function PRINTABLE_HEIGHT_PX(){ return Math.round((297 - 20) * MM_TO_PX); }
-
   function estimatePages(mdContent){
     if(!mdContent || !mdContent.trim()) return 0;
     var container = document.createElement('div');
@@ -802,15 +799,6 @@
     return result.replace(/\n{3,}/g,'\n\n').trim();
   }
 
-  function triggerDownload(blob, filename){
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = filename; a.style.display = 'none';
-    document.body.appendChild(a); a.click();
-    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
-    showToast('Downloaded: ' + filename);
-  }
-
   function downloadTxt(){ triggerDownload(new Blob([editor.value], {type:'text/plain;charset=utf-8'}), 'raffiuddin-shaik-resume.txt'); }
   function downloadMd(){ triggerDownload(new Blob([editor.value], {type:'text/markdown;charset=utf-8'}), 'raffiuddin-shaik-resume.md'); }
   function downloadHtml(){ triggerDownload(new Blob([buildStyledHtml(editor.value, false)], {type:'text/html;charset=utf-8'}), 'raffiuddin-shaik-resume.html'); }
@@ -854,37 +842,30 @@
   });
 
   /* ============================================================
-     CONVERT TAB
+     CONVERT TAB — FULLY REWRITTEN
      ============================================================ */
-  var convertState = { files: [], selected: 0, loadedLibs: false };
-  var dropzone        = document.getElementById('convertDropzone');
-  var convertInput    = document.getElementById('convertFileInput');
-  var convertFileList = document.getElementById('convertFileList');
-  var convertTargets  = document.getElementById('convertTargets');
-  var convertStatus   = document.getElementById('convertStatus');
-  var convertPreview  = document.getElementById('convertPreview');
-  var convertClearAll = document.getElementById('convertClearAll');
+  var convertState = { files: [], selected: 0, libsLoaded: false, libsPromise: null };
 
-  function setConvertStatus(msg, type){
-    convertStatus.textContent = msg;
-    convertStatus.classList.remove('ok','err');
-    if(type === 'ok') convertStatus.classList.add('ok');
-    else if(type === 'err') convertStatus.classList.add('err');
+  var cvtDropzone     = document.getElementById('convertDropzone');
+  var cvtInput        = document.getElementById('convertFileInput');
+  var cvtFileList     = document.getElementById('convertFileList');
+  var cvtTargets      = document.getElementById('convertTargets');
+  var cvtStatus       = document.getElementById('convertStatus');
+  var cvtPreview      = document.getElementById('convertPreview');
+  var cvtClearAll     = document.getElementById('convertClearAll');
+
+  function setCvtStatus(msg, type){
+    cvtStatus.textContent = msg;
+    cvtStatus.classList.remove('ok','err');
+    if(type === 'ok') cvtStatus.classList.add('ok');
+    else if(type === 'err') cvtStatus.classList.add('err');
   }
-  function fmtBytes(n){
-    if(n < 1024) return n + ' B';
-    if(n < 1048576) return (n/1024).toFixed(1) + ' KB';
-    return (n/1048576).toFixed(2) + ' MB';
-  }
-  function fileExt(name){
-    var i = name.lastIndexOf('.');
-    return i >= 0 ? name.slice(i+1).toLowerCase() : '';
-  }
-  function renderFileList(){
-    convertFileList.innerHTML = '';
+
+  function renderCvtFileList(){
+    cvtFileList.innerHTML = '';
     convertState.files.forEach(function(f, idx){
       var row = document.createElement('div');
-      row.className = 'convert-file';
+      row.className = 'convert-file' + (idx === convertState.selected ? ' active' : '');
       var info = document.createElement('div'); info.className = 'convert-file-info';
       var nm = document.createElement('div'); nm.className = 'convert-file-name'; nm.textContent = f.name;
       var mt = document.createElement('div'); mt.className = 'convert-file-meta';
@@ -895,119 +876,102 @@
       rm.addEventListener('click', function(ev){
         ev.stopPropagation();
         convertState.files.splice(idx, 1);
-        if(convertState.selected >= convertState.files.length) convertState.selected = 0;
-        renderFileList(); updateTargetButtons(); maybeShowPreview();
+        if(convertState.selected >= convertState.files.length) convertState.selected = Math.max(0, convertState.files.length - 1);
+        renderCvtFileList(); updateCvtTargets(); showCvtPreview();
       });
       row.appendChild(info); row.appendChild(rm);
-      row.addEventListener('click', function(ev){
-        if(ev.target === rm) return;
-        convertState.selected = idx; updateTargetButtons(); maybeShowPreview();
-      });
-      if(idx === convertState.selected) row.style.borderColor = '#5f6b7a';
-      convertFileList.appendChild(row);
+      row.addEventListener('click', function(){ convertState.selected = idx; renderCvtFileList(); updateCvtTargets(); showCvtPreview(); });
+      cvtFileList.appendChild(row);
     });
-    convertClearAll.disabled = convertState.files.length === 0;
+    cvtClearAll.disabled = convertState.files.length === 0;
   }
-  function updateTargetButtons(){
+
+  function updateCvtTargets(){
     var disabled = convertState.files.length === 0;
-    convertTargets.querySelectorAll('.target-btn').forEach(function(b){ b.disabled = disabled; });
-    if(disabled) setConvertStatus('Upload a file to get started.');
-    else setConvertStatus(convertState.files.length + ' file' + (convertState.files.length>1?'s':'') + ' ready. Pick an output format.', 'ok');
+    cvtTargets.querySelectorAll('.target-btn').forEach(function(b){ b.disabled = disabled; });
+    if(disabled){
+      setCvtStatus('Upload a file to get started.');
+      cvtPreview.style.display = 'none';
+    } else {
+      var f = convertState.files[convertState.selected];
+      setCvtStatus('Selected: ' + f.name + '. Pick an output format.', 'ok');
+    }
   }
-  function readFile(file){
+
+  function readCvtFile(file){
     return new Promise(function(resolve, reject){
       var ext = fileExt(file.name);
       var reader = new FileReader();
       reader.onerror = function(){ reject(reader.error); };
       reader.onload = function(ev){
-        var entry = { file: file, name: file.name, ext: ext, size: file.size, text: null, dataUrl: null, arrayBuffer: null };
-        if(ext === 'docx' || ext === 'pdf' || /png|jpe?g|gif|webp|bmp/.test(ext)){
+        var entry = { file: file, name: file.name, ext: ext, size: file.size, text: null, dataUrl: null, arrayBuffer: null, isImage: false };
+        if(ext === 'docx' || ext === 'pdf' || /^(png|jpe?g|gif|webp|bmp|svg)$/.test(ext)){
           entry.arrayBuffer = ev.target.result;
-          if(/png|jpe?g|gif|webp|bmp/.test(ext)){
+          if(/^(png|jpe?g|gif|webp|bmp|svg)$/.test(ext)){
+            entry.isImage = true;
             entry.dataUrl = 'data:' + (file.type || 'image/png') + ';base64,' + arrayBufferToBase64(entry.arrayBuffer);
           }
-        } else entry.text = ev.target.result;
+        } else {
+          entry.text = ev.target.result;
+        }
         resolve(entry);
       };
-      if(ext === 'docx' || ext === 'pdf' || /png|jpe?g|gif|webp|bmp/.test(ext)) reader.readAsArrayBuffer(file);
+      if(ext === 'docx' || ext === 'pdf' || /^(png|jpe?g|gif|webp|bmp|svg)$/.test(ext)) reader.readAsArrayBuffer(file);
       else reader.readAsText(file);
     });
   }
+
   function arrayBufferToBase64(buffer){
     var bytes = new Uint8Array(buffer), bin = '';
     for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
     return btoa(bin);
   }
-  function addFiles(fileList){
+
+  function addCvtFiles(fileList){
     var arr = Array.prototype.slice.call(fileList);
     if(arr.length === 0) return;
-    Promise.all(arr.map(readFile)).then(function(results){
+    Promise.all(arr.map(readCvtFile)).then(function(results){
       results.forEach(function(r){ convertState.files.push(r); });
       convertState.selected = convertState.files.length - results.length;
-      renderFileList(); updateTargetButtons(); maybeShowPreview();
+      renderCvtFileList(); updateCvtTargets(); showCvtPreview();
       showToast(arr.length + ' file' + (arr.length>1?'s':'') + ' added');
-    }).catch(function(err){ setConvertStatus('Error reading file: ' + err, 'err'); });
+    }).catch(function(err){ setCvtStatus('Error reading file: ' + err, 'err'); });
   }
-  dropzone.addEventListener('dragover', function(e){ e.preventDefault(); dropzone.classList.add('dragover'); });
-  dropzone.addEventListener('dragleave', function(){ dropzone.classList.remove('dragover'); });
-  dropzone.addEventListener('drop', function(e){
-    e.preventDefault(); dropzone.classList.remove('dragover');
-    if(e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+
+  cvtDropzone.addEventListener('dragover', function(e){ e.preventDefault(); cvtDropzone.classList.add('dragover'); });
+  cvtDropzone.addEventListener('dragleave', function(){ cvtDropzone.classList.remove('dragover'); });
+  cvtDropzone.addEventListener('drop', function(e){
+    e.preventDefault(); cvtDropzone.classList.remove('dragover');
+    if(e.dataTransfer && e.dataTransfer.files) addCvtFiles(e.dataTransfer.files);
   });
-  convertInput.addEventListener('change', function(e){ addFiles(e.target.files); convertInput.value = ''; });
-  convertClearAll.addEventListener('click', function(){
+  cvtInput.addEventListener('change', function(e){ addCvtFiles(e.target.files); cvtInput.value = ''; });
+  cvtClearAll.addEventListener('click', function(){
     convertState.files = []; convertState.selected = 0;
-    renderFileList(); updateTargetButtons();
-    convertPreview.style.display = 'none'; convertPreview.innerHTML = '';
-    setConvertStatus('All files cleared. Upload a new file to begin.');
+    renderCvtFileList(); updateCvtTargets(); showCvtPreview();
+    setCvtStatus('All files cleared. Upload a new file to begin.');
   });
 
-  function loadScript(src){
+  /* Lazy-load JSZip + SheetJS */
+  function loadLib(src){
     return new Promise(function(resolve, reject){
       var s = document.createElement('script');
-      s.src = src; s.onload = resolve;
+      s.src = src;
+      s.onload = function(){ resolve(); };
       s.onerror = function(){ reject(new Error('Failed to load ' + src)); };
       document.head.appendChild(s);
     });
   }
-  function loadLibs(){
-    if(convertState.loadedLibs) return Promise.resolve();
-    return Promise.all([
-      window.JSZip ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'),
-      window.XLSX  ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js')
-    ]).then(function(){ convertState.loadedLibs = true; });
+  function ensureLibs(){
+    if(convertState.libsLoaded) return Promise.resolve();
+    if(convertState.libsPromise) return convertState.libsPromise;
+    var p = Promise.resolve();
+    if(!window.JSZip) p = p.then(function(){ return loadLib('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'); });
+    if(!window.XLSX)  p = p.then(function(){ return loadLib('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); });
+    convertState.libsPromise = p.then(function(){ convertState.libsLoaded = true; });
+    return convertState.libsPromise;
   }
-  function maybeShowPreview(){
-    if(convertState.files.length === 0){ convertPreview.style.display = 'none'; return; }
-    var f = convertState.files[convertState.selected];
-    var html = '';
-    if(f.dataUrl) html = '<img src="' + f.dataUrl + '" alt="preview">';
-    else if(f.text != null){
-      var esc = escapeHtml(f.text.slice(0, 4000));
-      if(f.ext === 'csv') html = csvToHtmlTable(f.text);
-      else if(f.ext === 'json'){
-        try{ html = escapeHtml(JSON.stringify(JSON.parse(f.text), null, 2)).slice(0, 5000); }
-        catch(e){ html = esc; }
-      }
-      else if(f.ext === 'html' || f.ext === 'htm') html = '<div>' + f.text.replace(/<script[\s\S]*?<\/script>/gi,'') + '</div>';
-      else html = esc;
-    } else if(f.arrayBuffer) html = '<em>Binary file — ' + (f.ext || 'unknown') + ' (' + fmtBytes(f.size) + '). No inline preview available. You can still convert it.</em>';
-    convertPreview.innerHTML = html; convertPreview.style.display = 'block';
-  }
-  function csvToHtmlTable(csv){
-    var lines = csv.replace(/\r\n/g,'\n').split('\n').filter(function(l){ return l.trim(); });
-    if(lines.length === 0) return '';
-    var rows = lines.map(parseCsvLine);
-    var html = '<table><thead><tr>';
-    rows[0].forEach(function(c){ html += '<th>' + escapeHtml(c) + '</th>'; });
-    html += '</tr></thead><tbody>';
-    for(var i=1;i<rows.length && i<200;i++){
-      html += '<tr>';
-      rows[i].forEach(function(c){ html += '<td>' + escapeHtml(c) + '</td>'; });
-      html += '</tr>';
-    }
-    return html + '</tbody></table>';
-  }
+
+  /* CSV helpers */
   function parseCsvLine(line){
     var out = [], cur = '', inQ = false;
     for(var i=0;i<line.length;i++){
@@ -1025,67 +989,175 @@
     out.push(cur);
     return out;
   }
-  function resolveContent(entry){
-    return new Promise(function(resolve){
-      if(entry.text != null){ resolve(entry.text); return; }
-      if(entry.ext === 'docx'){ resolve('[DOCX — use the DOCX → HTML path]'); return; }
-      if(entry.ext === 'pdf'){ resolve('(PDF content cannot be fully extracted in-browser.)'); return; }
-      if(entry.dataUrl){ resolve('[Image: ' + entry.name + ']'); return; }
-      resolve('');
-    });
+  function parseCsv(text){
+    return text.replace(/\r\n/g,'\n').split('\n').filter(function(l){ return l.trim().length > 0; }).map(parseCsvLine);
   }
-  function docxToHtml(entry){
-    return loadLibs().then(function(){ return JSZip.loadAsync(entry.arrayBuffer); })
-      .then(function(zip){
-        var docXml = zip.file('word/document.xml');
-        if(!docXml) throw new Error('Not a valid DOCX');
-        return docXml.async('string');
-      })
-      .then(function(xml){
-        var paragraphs = xml.split(/<w:p[^>]*>/);
-        var out = [];
-        paragraphs.forEach(function(p){
-          var matches = p.match(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g) || [];
-          var line = matches.map(function(m){
-            return m.replace(/<[^>]+>/g,'')
-                    .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
-                    .replace(/&quot;/g,'"').replace(/&apos;/g,"'");
-          }).join('');
-          if(line.trim()) out.push('<p>' + line + '</p>');
-        });
-        return out.join('\n');
-      });
-  }
-  function buildHtmlFromText(text, name){
-    var body;
-    if(/\.(md|markdown)$/i.test(name)) body = mdToHtml(text);
-    else if(/\.(html?|htm)$/i.test(name)) body = text.replace(/<script[\s\S]*?<\/script>/gi,'');
-    else if(/\.json$/i.test(name)){
-      try{ body = '<pre>' + escapeHtml(JSON.stringify(JSON.parse(text), null, 2)) + '</pre>'; }
-      catch(e){ body = '<pre>' + escapeHtml(text) + '</pre>'; }
+  function csvToHtmlTable(csv){
+    var rows = parseCsv(textOrEmpty(csv));
+    if(rows.length === 0) return '';
+    var html = '<table><thead><tr>';
+    rows[0].forEach(function(c){ html += '<th>' + escapeHtml(c) + '</th>'; });
+    html += '</tr></thead><tbody>';
+    for(var i=1;i<rows.length && i<300;i++){
+      html += '<tr>';
+      rows[i].forEach(function(c){ html += '<td>' + escapeHtml(c) + '</td>'; });
+      html += '</tr>';
     }
-    else if(/\.csv$/i.test(name)) body = csvToHtmlTable(text);
-    else body = '<pre>' + escapeHtml(text) + '</pre>';
-    var css = "body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.6;font-size:11pt;}" +
+    return html + '</tbody></table>';
+  }
+  function textOrEmpty(s){ return s == null ? '' : String(s); }
+
+  /* Extract plain text from an entry (async for DOCX) */
+  function extractText(entry){
+    if(entry.text != null) return Promise.resolve(entry.text);
+    if(entry.isImage) return Promise.resolve('[Image: ' + entry.name + ']');
+    if(entry.ext === 'pdf') return Promise.resolve('[PDF content cannot be fully extracted in-browser. Please use a .txt/.md/.docx version for text conversions.]');
+    if(entry.ext === 'docx'){
+      return ensureLibs()
+        .then(function(){ return JSZip.loadAsync(entry.arrayBuffer); })
+        .then(function(zip){
+          var docXml = zip.file('word/document.xml');
+          if(!docXml) throw new Error('Not a valid DOCX');
+          return docXml.async('string');
+        })
+        .then(function(xml){
+          var paragraphs = xml.split(/<w:p[^>]*>/);
+          var out = [];
+          paragraphs.forEach(function(p){
+            var matches = p.match(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g) || [];
+            var line = matches.map(function(m){
+              return m.replace(/<[^>]+>/g,'')
+                      .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+                      .replace(/&quot;/g,'"').replace(/&apos;/g,"'");
+            }).join('');
+            if(line.trim()) out.push(line);
+          });
+          return out.join('\n');
+        });
+    }
+    return Promise.resolve('');
+  }
+
+  /* Build HTML body for a given entry + text */
+  function buildHtmlBody(entry, text){
+    var ext = entry.ext;
+    if(ext === 'md' || ext === 'markdown') return mdToHtml(text);
+    if(ext === 'html' || ext === 'htm') return text.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
+    if(ext === 'json'){
+      try{ return '<pre>' + escapeHtml(JSON.stringify(JSON.parse(text), null, 2)) + '</pre>'; }
+      catch(e){ return '<pre>' + escapeHtml(text) + '</pre>'; }
+    }
+    if(ext === 'csv') return csvToHtmlTable(text);
+    if(entry.isImage) return '<img src="' + entry.dataUrl + '" alt="' + escapeHtml(entry.name) + '" style="max-width:100%;height:auto;">';
+    return '<pre>' + escapeHtml(text) + '</pre>';
+  }
+
+  function wrapHtmlDocument(body, title){
+    var css = "body{font-family:'Segoe UI',Calibri,Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.6;font-size:11pt;}" +
               "h1,h2,h3,h4{color:#111;}h2{border-bottom:1px solid #ccc;padding-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em;}" +
-              "pre{background:#f5f5f5;padding:1rem;overflow:auto;font-size:9.5pt;line-height:1.45;}" +
+              "pre{background:#f5f5f5;padding:1rem;overflow:auto;font-size:9.5pt;line-height:1.45;white-space:pre-wrap;word-break:break-word;}" +
               "table{width:100%;border-collapse:collapse;font-size:9.5pt;}th,td{border:1px solid #ccc;padding:4pt 6pt;text-align:left;}th{background:#f0f0f0;}" +
-              "ul{padding-left:1.1rem;}";
-    return '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>' + escapeHtml(name) + '</title>' +
+              "ul{padding-left:1.1rem;}img{max-width:100%;height:auto;}";
+    return '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>' + escapeHtml(title) + '</title>' +
            '<style>' + css + '</style></head><body>' + body + '</body></html>';
   }
-  function buildDocFromHtml(html){
+
+  function wrapWordDocument(htmlDoc){
     return '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
            'xmlns:w="urn:schemas-microsoft-com:office:word" ' +
            'xmlns="http://www.w3.org/TR/REC-html40">' +
-           html.replace(/^<!DOCTYPE html>\s*<html[^>]*>\s*/i,'');
+           htmlDoc.replace(/^<!DOCTYPE html>\s*<html[^>]*>\s*/i,'');
   }
-  function buildXlsxData(entry, text){
-    var ext = entry.ext;
-    if(ext === 'csv'){
-      return text.replace(/\r\n/g,'\n').split('\n').filter(function(l){return l.trim();}).map(parseCsvLine);
+
+  /* Show preview of currently selected file */
+  function showCvtPreview(){
+    if(convertState.files.length === 0){ cvtPreview.style.display = 'none'; cvtPreview.innerHTML = ''; return; }
+    var f = convertState.files[convertState.selected];
+    if(f.isImage){
+      cvtPreview.innerHTML = '<img src="' + f.dataUrl + '" alt="preview">';
+      cvtPreview.style.display = 'block';
+      return;
     }
-    if(ext === 'json'){
+    if(f.text != null){
+      if(f.ext === 'csv') cvtPreview.innerHTML = csvToHtmlTable(f.text);
+      else if(f.ext === 'json'){
+        try{ cvtPreview.innerHTML = escapeHtml(JSON.stringify(JSON.parse(f.text), null, 2)).slice(0, 5000); }
+        catch(e){ cvtPreview.innerHTML = escapeHtml(f.text.slice(0, 4000)); }
+      }
+      else if(f.ext === 'html' || f.ext === 'htm') cvtPreview.innerHTML = '<div>' + f.text.replace(/<script[\s\S]*?<\/script>/gi,'') + '</div>';
+      else cvtPreview.innerHTML = escapeHtml(f.text.slice(0, 4000));
+      cvtPreview.style.display = 'block';
+      return;
+    }
+    // Binary (docx/pdf) — no inline preview
+    cvtPreview.innerHTML = '<em>Binary ' + (f.ext || 'file').toUpperCase() + ' (' + fmtBytes(f.size) + '). No inline preview — you can still convert it.</em>';
+    cvtPreview.style.display = 'block';
+  }
+
+  /* Build CSV output */
+  function buildCsvOutput(entry, text){
+    if(entry.ext === 'csv') return text;
+    if(entry.ext === 'json'){
+      try{
+        var obj = JSON.parse(text);
+        if(Array.isArray(obj) && obj.length && typeof obj[0] === 'object'){
+          var keys = Object.keys(obj[0]);
+          var rows = [keys];
+          obj.forEach(function(o){ rows.push(keys.map(function(k){ return o[k]; })); });
+          return rows.map(function(r){ return r.map(function(c){ return '"' + String(c==null?'':c).replace(/"/g,'""') + '"'; }).join(','); }).join('\n');
+        }
+      }catch(e){}
+    }
+    return text.split('\n').map(function(l){ return '"' + l.replace(/"/g,'""') + '"'; }).join('\n');
+  }
+
+  /* Build JSON output */
+  function buildJsonOutput(entry, text){
+    if(entry.ext === 'json'){
+      try{ return JSON.stringify(JSON.parse(text), null, 2); }catch(e){}
+    }
+    if(entry.ext === 'csv'){
+      var rows = parseCsv(text);
+      if(rows.length < 2) return JSON.stringify(rows, null, 2);
+      var keys = rows[0];
+      return JSON.stringify(rows.slice(1).map(function(r){
+        var o = {}; keys.forEach(function(k,i){ o[k] = r[i]; }); return o;
+      }), null, 2);
+    }
+    return JSON.stringify({ title: entry.name, content: text.split('\n') }, null, 2);
+  }
+
+  /* Build Markdown output */
+  function buildMarkdownOutput(entry, text){
+    if(entry.ext === 'md' || entry.ext === 'markdown') return text;
+    if(entry.ext === 'html' || entry.ext === 'htm'){
+      return text
+        .replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'')
+        .replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi,'# $1\n\n')
+        .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi,'## $1\n\n')
+        .replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi,'### $1\n\n')
+        .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi,'- $1\n')
+        .replace(/<\/?ul[^>]*>/gi,'\n')
+        .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi,'$1\n\n')
+        .replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'')
+        .replace(/\n{3,}/g,'\n\n').trim();
+    }
+    if(entry.ext === 'json') return '```json\n' + text + '\n```';
+    if(entry.ext === 'csv'){
+      var rows = parseCsv(text);
+      if(rows.length === 0) return '';
+      var md = '| ' + rows[0].join(' | ') + ' |\n';
+      md += '| ' + rows[0].map(function(){return '---';}).join(' | ') + ' |\n';
+      rows.slice(1).forEach(function(r){ md += '| ' + r.join(' | ') + ' |\n'; });
+      return md;
+    }
+    return text;
+  }
+
+  /* Build XLSX array-of-arrays */
+  function buildXlsxAoa(entry, text){
+    if(entry.ext === 'csv') return parseCsv(text);
+    if(entry.ext === 'json'){
       try{
         var obj = JSON.parse(text);
         if(Array.isArray(obj)){
@@ -1105,67 +1177,18 @@
         return [[String(obj)]];
       }catch(e){}
     }
-    return text.replace(/\r\n/g,'\n').split('\n').filter(function(l){return l.trim();}).map(function(l){ return [l]; });
+    return text.split('\n').filter(function(l){return l.trim();}).map(function(l){ return [l]; });
   }
-  function buildCsv(text){
-    if(/^[^\n]*,[^\n]*/.test(text)) return text;
-    return text.split('\n').map(function(l){ return '"' + l.replace(/"/g,'""') + '"'; }).join('\n');
-  }
-  function buildJson(text, entry){
-    if(entry.ext === 'json'){
-      try{ return JSON.stringify(JSON.parse(text), null, 2); }catch(e){}
-    }
-    if(entry.ext === 'csv'){
-      var rows = text.replace(/\r\n/g,'\n').split('\n').filter(function(l){return l.trim();}).map(parseCsvLine);
-      if(rows.length < 2) return JSON.stringify(rows);
-      var keys = rows[0];
-      return JSON.stringify(rows.slice(1).map(function(r){
-        var o = {}; keys.forEach(function(k,i){ o[k] = r[i]; }); return o;
-      }), null, 2);
-    }
-    return JSON.stringify({ title: entry.name, content: text.split('\n') }, null, 2);
-  }
-  function buildMarkdown(text, entry){
-    if(entry.ext === 'md' || entry.ext === 'markdown') return text;
-    if(entry.ext === 'html' || entry.ext === 'htm'){
-      return text
-        .replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'')
-        .replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi,'# $1\n\n')
-        .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi,'## $1\n\n')
-        .replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi,'### $1\n\n')
-        .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi,'- $1\n')
-        .replace(/<\/?ul[^>]*>/gi,'\n')
-        .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi,'$1\n\n')
-        .replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'')
-        .replace(/\n{3,}/g,'\n\n').trim();
-    }
-    if(entry.ext === 'json') return '```json\n' + text + '\n```';
-    if(entry.ext === 'csv'){
-      var rows = text.replace(/\r\n/g,'\n').split('\n').filter(function(l){return l.trim();}).map(parseCsvLine);
-      if(rows.length === 0) return '';
-      var md = '| ' + rows[0].join(' | ') + ' |\n';
-      md += '| ' + rows[0].map(function(){return '---';}).join(' | ') + ' |\n';
-      rows.slice(1).forEach(function(r){ md += '| ' + r.join(' | ') + ' |\n'; });
-      return md;
-    }
-    return text;
-  }
-  function exportPdfFromEntry(entry, text){
-    var body;
-    if(entry.ext === 'csv') body = csvToHtmlTable(text);
-    else if(entry.ext === 'json'){
-      try{ body = '<pre>' + escapeHtml(JSON.stringify(JSON.parse(text), null, 2)) + '</pre>'; }
-      catch(e){ body = '<pre>' + escapeHtml(text) + '</pre>'; }
-    }
-    else if(entry.ext === 'md' || entry.ext === 'markdown') body = mdToHtml(text);
-    else if(entry.ext === 'html' || entry.ext === 'htm') body = text.replace(/<script[\s\S]*?<\/script>/gi,'');
-    else body = '<pre style="font-family:Consolas,monospace;font-size:9pt;white-space:pre-wrap;word-break:break-word;">' + escapeHtml(text) + '</pre>';
+
+  /* PDF export */
+  function exportPdf(entry, text){
+    var body = buildHtmlBody(entry, text);
     var css = "@page{size:A4;margin:14mm;}body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:10pt;line-height:1.4;}" +
               "h1{font-size:16pt;border-bottom:1.5pt solid #222;padding-bottom:4pt;}" +
               "h2{font-size:11pt;border-bottom:.6pt solid #999;padding-bottom:2pt;text-transform:uppercase;letter-spacing:.05em;}" +
-              "pre{background:#f5f5f5;padding:8pt;overflow:auto;font-size:9pt;}" +
+              "pre{background:#f5f5f5;padding:8pt;overflow:auto;font-size:9pt;white-space:pre-wrap;word-break:break-word;}" +
               "table{width:100%;border-collapse:collapse;font-size:9pt;}th,td{border:.6pt solid #ccc;padding:3pt 5pt;text-align:left;}th{background:#f0f0f0;}" +
-              "ul{padding-left:14pt;}";
+              "ul{padding-left:14pt;}img{max-width:100%;height:auto;}";
     var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>' + escapeHtml(entry.name) + '</title>' +
                '<style>' + css + '</style></head><body>' + body + '</body></html>';
     var iframe = document.createElement('iframe');
@@ -1180,89 +1203,113 @@
       finally { setTimeout(function(){ if(iframe.parentNode) iframe.parentNode.removeChild(iframe); }, 4000); }
     }, 350);
   }
-  convertTargets.addEventListener('click', function(e){
-    var btn = e.target.closest('.target-btn');
-    if(!btn || btn.disabled) return;
-    var entry = convertState.files[convertState.selected];
-    if(!entry){ setConvertStatus('No file selected.', 'err'); return; }
-    handleConvert(entry, btn.dataset.target);
-  });
+
+  /* Main convert handler */
   function handleConvert(entry, target){
-    setConvertStatus('Converting ' + entry.name + ' → ' + target.toUpperCase() + '…');
-    if(entry.ext === 'docx' && (target === 'html' || target === 'md' || target === 'txt' || target === 'json')){
-      loadLibs().then(function(){ return docxToHtml(entry); }).then(function(html){
-        if(target === 'html'){
-          var styled = buildHtmlFromText(entry.name, entry.name).replace('<body>', '<body>' + html);
-          triggerDownload(new Blob([styled], {type:'text/html;charset=utf-8'}), baseOut(entry.name,'html'));
-        } else {
-          var tmp = document.createElement('div'); tmp.innerHTML = html;
-          var text = tmp.textContent || tmp.innerText || '';
-          if(target === 'md') triggerDownload(new Blob([text], {type:'text/markdown;charset=utf-8'}), baseOut(entry.name,'md'));
-          else if(target === 'txt') triggerDownload(new Blob([text], {type:'text/plain;charset=utf-8'}), baseOut(entry.name,'txt'));
-          else if(target === 'json') triggerDownload(new Blob([buildJson(text, {ext:'txt'})], {type:'application/json;charset=utf-8'}), baseOut(entry.name,'json'));
-        }
-        setConvertStatus('Converted ' + entry.name + ' → ' + target.toUpperCase() + ' ✓', 'ok');
-      }).catch(function(err){ setConvertStatus('DOCX conversion failed: ' + err.message, 'err'); });
+    setCvtStatus('Converting ' + entry.name + ' → ' + target.toUpperCase() + '…');
+
+    /* PDF uses a special path — build body directly from entry */
+    if(target === 'pdf'){
+      if(entry.text != null){
+        exportPdf(entry, entry.text);
+      } else if(entry.isImage){
+        var imgBody = '<img src="' + entry.dataUrl + '" alt="' + escapeHtml(entry.name) + '" style="max-width:100%;height:auto;">';
+        var imgHtml = '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>' + escapeHtml(entry.name) + '</title>' +
+                      '<style>@page{size:A4;margin:14mm;}body{text-align:center;}</style></head><body>' + imgBody + '</body></html>';
+        var iframeImg = document.createElement('iframe');
+        iframeImg.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+        document.body.appendChild(iframeImg);
+        var d = iframeImg.contentWindow.document;
+        d.open(); d.write(imgHtml); d.close();
+        setTimeout(function(){
+          try{ iframeImg.contentWindow.focus(); iframeImg.contentWindow.print(); showToast('Print dialog opened — choose "Save as PDF"'); }
+          catch(err){ showToast('Could not open print dialog.'); }
+          finally { setTimeout(function(){ if(iframeImg.parentNode) iframeImg.parentNode.removeChild(iframeImg); }, 4000); }
+        }, 350);
+      } else {
+        extractText(entry).then(function(text){ exportPdf(entry, text); });
+      }
+      setCvtStatus('Print dialog opened for ' + entry.name + ' → PDF', 'ok');
       return;
     }
-    resolveContent(entry).then(function(text){
+
+    /* Everything else needs text */
+    extractText(entry).then(function(text){
       try{
-        if(target === 'txt') triggerDownload(new Blob([text], {type:'text/plain;charset=utf-8'}), baseOut(entry.name,'txt'));
-        else if(target === 'md') triggerDownload(new Blob([buildMarkdown(text, entry)], {type:'text/markdown;charset=utf-8'}), baseOut(entry.name,'md'));
-        else if(target === 'html') triggerDownload(new Blob([buildHtmlFromText(text, entry.name)], {type:'text/html;charset=utf-8'}), baseOut(entry.name,'html'));
-        else if(target === 'json') triggerDownload(new Blob([buildJson(text, entry)], {type:'application/json;charset=utf-8'}), baseOut(entry.name,'json'));
-        else if(target === 'csv') triggerDownload(new Blob(['\ufeff' + buildCsv(text)], {type:'text/csv;charset=utf-8'}), baseOut(entry.name,'csv'));
+        if(target === 'txt'){
+          triggerDownload(new Blob([text], {type:'text/plain;charset=utf-8'}), baseOut(entry.name,'txt'));
+        }
+        else if(target === 'md'){
+          triggerDownload(new Blob([buildMarkdownOutput(entry, text)], {type:'text/markdown;charset=utf-8'}), baseOut(entry.name,'md'));
+        }
+        else if(target === 'html'){
+          var body = buildHtmlBody(entry, text);
+          triggerDownload(new Blob([wrapHtmlDocument(body, entry.name)], {type:'text/html;charset=utf-8'}), baseOut(entry.name,'html'));
+        }
+        else if(target === 'json'){
+          triggerDownload(new Blob([buildJsonOutput(entry, text)], {type:'application/json;charset=utf-8'}), baseOut(entry.name,'json'));
+        }
+        else if(target === 'csv'){
+          triggerDownload(new Blob(['\ufeff' + buildCsvOutput(entry, text)], {type:'text/csv;charset=utf-8'}), baseOut(entry.name,'csv'));
+        }
         else if(target === 'docx'){
-          var html = buildHtmlFromText(text, entry.name);
-          var wordHtml = buildDocFromHtml(html);
+          var bodyDocx = buildHtmlBody(entry, text);
+          var htmlDoc = wrapHtmlDocument(bodyDocx, entry.name);
+          var wordHtml = wrapWordDocument(htmlDoc);
           triggerDownload(new Blob(['\ufeff' + wordHtml], {type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}), baseOut(entry.name,'docx'));
         }
         else if(target === 'xlsx'){
-          loadLibs().then(function(){
-            var aoa = buildXlsxData(entry, text);
+          ensureLibs().then(function(){
+            var aoa = buildXlsxAoa(entry, text);
             var ws = XLSX.utils.aoa_to_sheet(aoa);
             var wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
             var out = XLSX.write(wb, {bookType:'xlsx', type:'array'});
             triggerDownload(new Blob([out], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), baseOut(entry.name,'xlsx'));
-            setConvertStatus('Converted ' + entry.name + ' → XLSX ✓', 'ok');
-          }).catch(function(err){ setConvertStatus('XLSX library failed to load: ' + err.message, 'err'); });
+            setCvtStatus('Converted ' + entry.name + ' → XLSX ✓', 'ok');
+          }).catch(function(err){
+            setCvtStatus('XLSX library failed to load: ' + err.message, 'err');
+          });
           return;
         }
-        else if(target === 'pdf'){ exportPdfFromEntry(entry, text); setConvertStatus('Print dialog opened for ' + entry.name + ' → PDF', 'ok'); return; }
-        setConvertStatus('Converted ' + entry.name + ' → ' + target.toUpperCase() + ' ✓', 'ok');
-      }catch(err){ setConvertStatus('Conversion failed: ' + err.message, 'err'); }
+        setCvtStatus('Converted ' + entry.name + ' → ' + target.toUpperCase() + ' ✓', 'ok');
+      }catch(err){
+        setCvtStatus('Conversion failed: ' + err.message, 'err');
+      }
+    }).catch(function(err){
+      setCvtStatus('Error reading ' + entry.name + ': ' + err.message, 'err');
     });
   }
-  function baseOut(name, ext){ return name.replace(/\.[^.]+$/, '') + '.' + ext; }
-  updateTargetButtons();
+
+  cvtTargets.addEventListener('click', function(e){
+    var btn = e.target.closest('.target-btn');
+    if(!btn || btn.disabled) return;
+    var entry = convertState.files[convertState.selected];
+    if(!entry){ setCvtStatus('No file selected.', 'err'); return; }
+    handleConvert(entry, btn.dataset.target);
+  });
+
+  /* init convert */
+  updateCvtTargets();
 
   /* ============================================================
      COMPRESS TAB
-     Uses the native CompressionStream / DecompressionStream APIs
-     (Chrome 80+, Edge 80+, Safari 16.4+, Firefox 113+)
-     plus JSZip for multi-file .zip archives.
      ============================================================ */
-  var compState = {
-    files: [],           // { file, name, ext, size, arrayBuffer }
-    mode: 'zip',         // zip | gzip | deflate | decompress
-    busy: false
-  };
-
-  var compDropzone     = document.getElementById('compressDropzone');
-  var compInput        = document.getElementById('compressFileInput');
-  var compFileList     = document.getElementById('compressFileList');
-  var compClearAll     = document.getElementById('compressClearAll');
-  var compLevel        = document.getElementById('compressLevel');
-  var compArchiveName  = document.getElementById('compressArchiveName');
-  var compModeBtns     = document.querySelectorAll('#compressMode .mode-btn');
-  var compRunBtn       = document.getElementById('compressRun');
-  var compResetBtn     = document.getElementById('compressReset');
-  var compStatus       = document.getElementById('compressStatus');
-  var statOriginal     = document.getElementById('statOriginal');
-  var statOutput       = document.getElementById('statOutput');
-  var statRatio        = document.getElementById('statRatio');
-  var compNote         = document.getElementById('compressNote');
+  var compState = { files: [], mode: 'zip', busy: false };
+  var compDropzone    = document.getElementById('compressDropzone');
+  var compInput       = document.getElementById('compressFileInput');
+  var compFileList    = document.getElementById('compressFileList');
+  var compClearAll    = document.getElementById('compressClearAll');
+  var compLevel       = document.getElementById('compressLevel');
+  var compArchiveName = document.getElementById('compressArchiveName');
+  var compModeBtns    = document.querySelectorAll('#compressMode .mode-btn');
+  var compRunBtn      = document.getElementById('compressRun');
+  var compResetBtn    = document.getElementById('compressReset');
+  var compStatus      = document.getElementById('compressStatus');
+  var statOriginal    = document.getElementById('statOriginal');
+  var statOutput      = document.getElementById('statOutput');
+  var statRatio       = document.getElementById('statRatio');
+  var compNote        = document.getElementById('compressNote');
 
   function setCompStatus(msg, type){
     compStatus.textContent = msg;
@@ -1271,14 +1318,11 @@
     else if(type === 'err') compStatus.classList.add('err');
   }
   function updateCompStats(origBytes, outBytes){
-    if(origBytes == null){ statOriginal.textContent = '—'; }
-    else statOriginal.textContent = fmtBytes(origBytes);
-    if(outBytes == null){ statOutput.textContent = '—'; }
-    else statOutput.textContent = fmtBytes(outBytes);
+    statOriginal.textContent = origBytes == null ? '—' : fmtBytes(origBytes);
+    statOutput.textContent   = outBytes  == null ? '—' : fmtBytes(outBytes);
     if(origBytes && outBytes){
       var pct = ((1 - outBytes/origBytes) * 100);
-      if(pct >= 0) statRatio.textContent = pct.toFixed(1) + '%';
-      else statRatio.textContent = '+' + Math.abs(pct).toFixed(1) + '%';
+      statRatio.textContent = (pct >= 0 ? pct.toFixed(1) + '%' : '+' + Math.abs(pct).toFixed(1) + '%');
     } else statRatio.textContent = '—';
   }
   function renderCompList(){
@@ -1287,6 +1331,7 @@
       compClearAll.disabled = true;
       compRunBtn.disabled = true;
       compResetBtn.disabled = true;
+      updateCompStats(null, null);
       return;
     }
     compState.files.forEach(function(f, idx){
@@ -1317,12 +1362,7 @@
       var reader = new FileReader();
       reader.onerror = function(){ reject(reader.error); };
       reader.onload = function(ev){
-        resolve({
-          file: file, name: file.name,
-          ext: fileExt(file.name),
-          size: file.size,
-          arrayBuffer: ev.target.result
-        });
+        resolve({ file: file, name: file.name, ext: fileExt(file.name), size: file.size, arrayBuffer: ev.target.result });
       };
       reader.readAsArrayBuffer(file);
     });
@@ -1330,10 +1370,17 @@
   function addCompFiles(fileList){
     var arr = Array.prototype.slice.call(fileList);
     if(arr.length === 0) return;
+    var hasZip = arr.some(function(f){ return f.name.toLowerCase().endsWith('.zip'); });
+    if(hasZip && arr.length === 1){
+      compState.mode = 'decompress';
+      compModeBtns.forEach(function(x){ x.classList.toggle('active', x.dataset.mode === 'decompress'); });
+      compRunBtn.textContent = '⬆ Decompress';
+      compNote.innerHTML = 'Upload a <em>.zip</em> archive and click Decompress. All contained files will be extracted and downloaded separately.';
+    }
     Promise.all(arr.map(readCompFile)).then(function(results){
       results.forEach(function(r){ compState.files.push(r); });
       renderCompList();
-      setCompStatus(compState.files.length + ' file' + (compState.files.length>1?'s':'') + ' ready. Choose an algorithm and click Compress.', 'ok');
+      setCompStatus(compState.files.length + ' file' + (compState.files.length>1?'s':'') + ' ready.', 'ok');
     }).catch(function(err){ setCompStatus('Error reading file: ' + err, 'err'); });
   }
   compDropzone.addEventListener('dragover', function(e){ e.preventDefault(); compDropzone.classList.add('dragover'); });
@@ -1344,16 +1391,12 @@
   });
   compInput.addEventListener('change', function(e){ addCompFiles(e.target.files); compInput.value = ''; });
   compClearAll.addEventListener('click', function(){
-    compState.files = [];
-    renderCompList();
-    updateCompStats(null, null);
+    compState.files = []; renderCompList();
     setCompStatus('Cleared. Add files to get started.');
     compArchiveName.value = 'archive';
   });
   compResetBtn.addEventListener('click', function(){
-    compState.files = [];
-    renderCompList();
-    updateCompStats(null, null);
+    compState.files = []; renderCompList();
     setCompStatus('Reset. Add files to get started.');
     compArchiveName.value = 'archive';
   });
@@ -1362,29 +1405,26 @@
       if(compState.busy) return;
       compState.mode = b.dataset.mode;
       compModeBtns.forEach(function(x){ x.classList.toggle('active', x === b); });
-      // Update action button label
       if(compState.mode === 'decompress'){
         compRunBtn.textContent = '⬆ Decompress';
-        compNote.innerHTML = 'Upload a <em>.zip</em> archive and click Decompress. All contained files will be extracted and downloaded separately.';
+        compNote.innerHTML = 'Upload a <em>.zip</em> archive and click Decompress.';
       } else if(compState.mode === 'gzip'){
         compRunBtn.textContent = '⬇ Compress';
-        compNote.innerHTML = 'GZIP produces a single <em>.gz</em> file. Works well for logs, JSON, CSV, and text. Only the first file is used.';
+        compNote.innerHTML = 'GZIP produces a single <em>.gz</em> file. Only the first file is used.';
       } else if(compState.mode === 'deflate'){
         compRunBtn.textContent = '⬇ Compress';
-        compNote.innerHTML = 'DEFLATE produces a raw <em>.deflate</em> stream. Often slightly smaller than GZIP. Only the first file is used.';
+        compNote.innerHTML = 'DEFLATE produces a raw <em>.deflate</em> stream. Only the first file is used.';
       } else {
         compRunBtn.textContent = '⬇ Compress';
-        compNote.innerHTML = 'ZIP bundles all selected files into one <em>.zip</em> archive. Use level 9 for maximum compression.';
+        compNote.innerHTML = 'ZIP bundles all selected files into one <em>.zip</em> archive.';
       }
-      // Enable/disable based on file presence
       compRunBtn.disabled = compState.files.length === 0 || compState.busy;
     });
   });
 
-  /* ---------- Compression primitives ---------- */
-  function compressWithStream(arrayBuffer, format, level){
+  function streamCompress(arrayBuffer, format){
     if(typeof CompressionStream === 'undefined'){
-      return Promise.reject(new Error('Your browser does not support CompressionStream. Use Chrome, Edge, or Safari 16.4+.'));
+      return Promise.reject(new Error('CompressionStream not supported. Use Chrome, Edge, or Safari 16.4+.'));
     }
     var cs = new CompressionStream(format);
     var writer = cs.writable.getWriter();
@@ -1399,40 +1439,13 @@
         return pump();
       });
     })().then(function(){
-      // Concatenate all chunks into one Uint8Array
       var total = chunks.reduce(function(s,c){ return s + c.length; }, 0);
-      var out = new Uint8Array(total);
-      var off = 0;
-      chunks.forEach(function(c){ out.set(c, off); off += c.length; });
-      return out.buffer;
-    });
-  }
-  function decompressWithStream(arrayBuffer, format){
-    if(typeof DecompressionStream === 'undefined'){
-      return Promise.reject(new Error('Your browser does not support DecompressionStream. Use Chrome, Edge, or Safari 16.4+.'));
-    }
-    var ds = new DecompressionStream(format);
-    var writer = ds.writable.getWriter();
-    writer.write(new Uint8Array(arrayBuffer));
-    writer.close();
-    var chunks = [];
-    var reader = ds.readable.getReader();
-    return (function pump(){
-      return reader.read().then(function(r){
-        if(r.done) return;
-        chunks.push(r.value);
-        return pump();
-      });
-    })().then(function(){
-      var total = chunks.reduce(function(s,c){ return s + c.length; }, 0);
-      var out = new Uint8Array(total);
-      var off = 0;
+      var out = new Uint8Array(total), off = 0;
       chunks.forEach(function(c){ out.set(c, off); off += c.length; });
       return out.buffer;
     });
   }
 
-  /* ---------- Run compression/decompression ---------- */
   compRunBtn.addEventListener('click', function(){
     if(compState.busy || compState.files.length === 0) return;
     compState.busy = true;
@@ -1444,66 +1457,49 @@
     var first = compState.files[0];
 
     if(mode === 'zip'){
-      loadLibs()
-        .then(function(){
-          var zip = new JSZip();
-          var total = 0;
-          // Add all files to the zip
-          compState.files.forEach(function(f){
-            zip.file(f.name, f.arrayBuffer);
-            total += f.size;
-          });
-          var opts = { type: 'blob', compression: 'DEFLATE',
-                       compressionOptions: { level: parseInt(compLevel.value, 10) || 6 } };
-          return zip.generateAsync(opts).then(function(blob){
-            var base = (compArchiveName.value || 'archive').replace(/\.zip$/i,'');
-            triggerDownload(blob, base + '.zip');
-            updateCompStats(total, blob.size);
-            setCompStatus('Compressed ' + compState.files.length + ' file' + (compState.files.length>1?'s':'') +
-                          ' → ' + base + '.zip (' + fmtBytes(blob.size) + ') ✓', 'ok');
-          });
-        })
-        .catch(function(err){ setCompStatus('ZIP compression failed: ' + err.message, 'err'); })
+      ensureLibs().then(function(){
+        var zip = new JSZip();
+        var total = 0;
+        compState.files.forEach(function(f){ zip.file(f.name, f.arrayBuffer); total += f.size; });
+        var opts = { type: 'blob', compression: 'DEFLATE', compressionOptions: { level: parseInt(compLevel.value,10) || 6 } };
+        return zip.generateAsync(opts).then(function(blob){
+          var base = (compArchiveName.value || 'archive').replace(/\.zip$/i,'');
+          triggerDownload(blob, base + '.zip');
+          updateCompStats(total, blob.size);
+          setCompStatus('Compressed ' + compState.files.length + ' file(s) → ' + base + '.zip ✓', 'ok');
+        });
+      }).catch(function(err){ setCompStatus('ZIP failed: ' + err.message, 'err'); })
         .finally(function(){ compState.busy = false; compRunBtn.disabled = false; compResetBtn.disabled = false; });
 
     } else if(mode === 'gzip'){
-      compressWithStream(first.arrayBuffer, 'gzip', compLevel.value)
-        .then(function(buf){
-          var base = first.name.replace(/\.[^.]+$/, '');
-          triggerDownload(new Blob([buf], {type:'application/gzip'}), base + '.gz');
-          updateCompStats(first.size, buf.byteLength);
-          setCompStatus('Compressed ' + first.name + ' → ' + base + '.gz (' + fmtBytes(buf.byteLength) + ') ✓', 'ok');
-        })
-        .catch(function(err){ setCompStatus('GZIP failed: ' + err.message, 'err'); })
+      streamCompress(first.arrayBuffer, 'gzip').then(function(buf){
+        var base = first.name.replace(/\.[^.]+$/, '');
+        triggerDownload(new Blob([buf], {type:'application/gzip'}), base + '.gz');
+        updateCompStats(first.size, buf.byteLength);
+        setCompStatus('Compressed ' + first.name + ' → ' + base + '.gz ✓', 'ok');
+      }).catch(function(err){ setCompStatus('GZIP failed: ' + err.message, 'err'); })
         .finally(function(){ compState.busy = false; compRunBtn.disabled = false; compResetBtn.disabled = false; });
 
     } else if(mode === 'deflate'){
-      compressWithStream(first.arrayBuffer, 'deflate', compLevel.value)
-        .then(function(buf){
-          var base = first.name.replace(/\.[^.]+$/, '');
-          triggerDownload(new Blob([buf], {type:'application/octet-stream'}), base + '.deflate');
-          updateCompStats(first.size, buf.byteLength);
-          setCompStatus('Compressed ' + first.name + ' → ' + base + '.deflate (' + fmtBytes(buf.byteLength) + ') ✓', 'ok');
-        })
-        .catch(function(err){ setCompStatus('DEFLATE failed: ' + err.message, 'err'); })
+      streamCompress(first.arrayBuffer, 'deflate').then(function(buf){
+        var base = first.name.replace(/\.[^.]+$/, '');
+        triggerDownload(new Blob([buf], {type:'application/octet-stream'}), base + '.deflate');
+        updateCompStats(first.size, buf.byteLength);
+        setCompStatus('Compressed ' + first.name + ' → ' + base + '.deflate ✓', 'ok');
+      }).catch(function(err){ setCompStatus('DEFLATE failed: ' + err.message, 'err'); })
         .finally(function(){ compState.busy = false; compRunBtn.disabled = false; compResetBtn.disabled = false; });
 
     } else if(mode === 'decompress'){
-      // Expect a .zip file
       if(first.ext !== 'zip'){
         setCompStatus('Please upload a .zip file to decompress.', 'err');
         compState.busy = false; compRunBtn.disabled = false; compResetBtn.disabled = false;
         return;
       }
-      loadLibs()
-        .then(function(){ return JSZip.loadAsync(first.arrayBuffer); })
+      ensureLibs().then(function(){ return JSZip.loadAsync(first.arrayBuffer); })
         .then(function(zip){
           var entries = [];
           zip.forEach(function(path, entry){ if(!entry.dir) entries.push(entry); });
-          if(entries.length === 0){
-            setCompStatus('The .zip contains no files.', 'err');
-            return;
-          }
+          if(entries.length === 0){ setCompStatus('The .zip contains no files.', 'err'); return; }
           var totalOut = 0;
           var chain = Promise.resolve();
           entries.forEach(function(entry){
@@ -1516,7 +1512,7 @@
           });
           return chain.then(function(){
             updateCompStats(first.size, totalOut);
-            setCompStatus('Extracted ' + entries.length + ' file' + (entries.length>1?'s':'') + ' from archive ✓', 'ok');
+            setCompStatus('Extracted ' + entries.length + ' file(s) ✓', 'ok');
           });
         })
         .catch(function(err){ setCompStatus('Decompression failed: ' + err.message, 'err'); })
@@ -1524,22 +1520,6 @@
     }
   });
 
-  // Auto-switch mode when a .zip is uploaded
-  var origAddCompFiles = addCompFiles;
-  addCompFiles = function(fileList){
-    var arr = Array.prototype.slice.call(fileList);
-    var hasZip = arr.some(function(f){ return f.name.toLowerCase().endsWith('.zip'); });
-    if(hasZip && arr.length === 1){
-      // Auto-select decompress mode
-      compState.mode = 'decompress';
-      compModeBtns.forEach(function(x){ x.classList.toggle('active', x.dataset.mode === 'decompress'); });
-      compRunBtn.textContent = '⬆ Decompress';
-      compNote.innerHTML = 'Upload a <em>.zip</em> archive and click Decompress. All contained files will be extracted and downloaded separately.';
-    }
-    origAddCompFiles(fileList);
-  };
-
-  // Initialize compress tab
   updateCompStats(null, null);
   setCompStatus('Add files to get started.');
 

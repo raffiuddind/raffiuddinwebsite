@@ -659,28 +659,21 @@
     'Place: Chennai'
   ].join('\n');
 
-  function getCompactCss(){
+    function getCompactCss(){
     return [
-      "@page{size:A4 portrait;margin:10mm 12mm;}",
-      "*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}",
-      "html,body{margin:0;padding:0;background:#fff;}",
-      "body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:9pt;line-height:1.25;}",
-      "h1{font-size:14pt;font-weight:700;margin:0 0 1pt;padding:0 0 2pt;border-bottom:1pt solid #222;color:#000;line-height:1.1;}",
-      "h2{font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin:6pt 0 2pt;padding-bottom:1pt;border-bottom:0.5pt solid #999;color:#111;page-break-after:avoid;}",
-      "h3{font-size:9pt;font-weight:700;margin:4pt 0 1pt;color:#111;page-break-after:avoid;}",
-      "h4{font-size:8.5pt;font-weight:600;margin:3pt 0 1pt;color:#333;page-break-after:avoid;}",
-      "p{margin:0 0 2pt;color:#222;}",
-      "ul{margin:0 0 2pt;padding-left:10pt;list-style:none;}",
-      "ul li{position:relative;padding-left:8pt;margin:0 0 0.5pt;color:#222;page-break-inside:avoid;}",
-      "ul li::before{content:'•';position:absolute;left:0;color:#555;font-weight:700;}",
-      "hr{border:none;border-top:0.5pt solid #ccc;margin:4pt 0;}",
+      "h1{font-size:18px;font-weight:700;margin:0 0 4px;padding:0 0 6px;border-bottom:2px solid #222;color:#000;line-height:1.2;}",
+      "h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;padding-bottom:3px;border-bottom:1px solid #999;color:#111;line-height:1.3;}",
+      "h3{font-size:12.5px;font-weight:700;margin:10px 0 4px;color:#111;line-height:1.3;}",
+      "h4{font-size:12px;font-weight:600;margin:8px 0 3px;color:#333;line-height:1.3;}",
+      "p{margin:0 0 5px;color:#222;line-height:1.45;}",
+      "ul{margin:0 0 6px;padding-left:16px;list-style:disc;}",
+      "ul li{margin:0 0 3px;color:#222;line-height:1.45;}",
+      "hr{border:none;border-top:1px solid #ccc;margin:10px 0;}",
       "strong{color:#000;font-weight:700;}",
       "em{color:#333;font-style:italic;}",
-      "code{background:#f2f2f2;padding:0 2pt;font-size:8pt;font-family:'Consolas','Courier New',monospace;}",
-      "a{color:#111;text-decoration:none;}",
-      "li,p{orphans:2;widows:2;}",
-      "h1,h2,h3,h4{page-break-after:avoid;}"
-    ].join('');
+      "code{background:#f2f2f2;padding:1px 4px;font-size:11px;font-family:Consolas,'Courier New',monospace;}",
+      "a{color:#111;text-decoration:none;}"
+    ].join('\n');
   }
 
   function buildStyledHtml(mdContent, forWord){
@@ -814,57 +807,95 @@
   /* ============================================================
      RESUME PDF — real .pdf via jsPDF + html2canvas
      ============================================================ */
-  function renderToPdf(htmlBody, cssText, outFilename){
+    function renderToPdf(htmlBody, cssText, outFilename){
     return Promise.all([
       window.jspdf ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),
       window.html2canvas ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
     ]).then(function(){
-      var renderRoot = document.createElement('div');
-      renderRoot.style.position = 'fixed';
-      renderRoot.style.left = '-99999px';
-      renderRoot.style.top = '0';
-      renderRoot.style.width = '794px';
-      renderRoot.style.background = '#fff';
-      renderRoot.style.padding = '37px 45px';
-      renderRoot.style.boxSizing = 'border-box';
-      renderRoot.innerHTML = '<style>' + cssText + '</style>' + htmlBody;
-      document.body.appendChild(renderRoot);
+      // Build a fully self-contained, inline-styled A4 document.
+      // html2canvas respects inline styles far more reliably than <style> blocks.
+      var A4_W_PX  = 794;   // 210mm @ 96dpi
+      var PAD_X_PX = 48;    // ~12mm
+      var PAD_Y_PX = 40;    // ~10mm
 
-      return html2canvas(renderRoot, {
+      var container = document.createElement('div');
+      container.style.cssText =
+        'position:fixed;left:-99999px;top:0;' +
+        'width:' + A4_W_PX + 'px;' +
+        'background:#ffffff;' +
+        'color:#111111;' +
+        'padding:' + PAD_Y_PX + 'px ' + PAD_X_PX + 'px;' +
+        'box-sizing:border-box;' +
+        'font-family:Calibri,"Segoe UI",Arial,sans-serif;' +
+        'font-size:12px;' +
+        'line-height:1.4;' +
+        '-webkit-font-smoothing:antialiased;';
+
+      // Inject the print CSS *scoped* to this container so the rules apply
+      // even when html2canvas parses the DOM.
+      var scopedCss = cssText
+        .replace(/(^|\})\s*([^{}@]+)\{/g, function(m, brace, sel){
+          // Prefix each selector with our unique wrapper id
+          var prefixed = sel.split(',').map(function(s){
+            s = s.trim();
+            if(!s || s.indexOf('@') === 0) return s;
+            return '#__pdf_render_root__ ' + s;
+          }).join(', ');
+          return brace + ' ' + prefixed + ' {';
+        });
+      container.id = '__pdf_render_root__';
+
+      var styleEl = document.createElement('style');
+      styleEl.textContent = scopedCss;
+      container.appendChild(styleEl);
+
+      var bodyWrap = document.createElement('div');
+      bodyWrap.innerHTML = htmlBody;
+      container.appendChild(bodyWrap);
+
+      document.body.appendChild(container);
+
+      return html2canvas(container, {
         scale: 2,
         backgroundColor: '#ffffff',
         useCORS: true,
         logging: false,
-        windowWidth: 794
+        windowWidth: A4_W_PX,
+        width: A4_W_PX,
+        scrollX: 0,
+        scrollY: 0
       }).then(function(canvas){
-        if(renderRoot.parentNode) document.body.removeChild(renderRoot);
+        if(container.parentNode) document.body.removeChild(container);
 
         var jsPDF = window.jspdf.jsPDF;
         var pdf = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait' });
         var pageWidthPt  = pdf.internal.pageSize.getWidth();
         var pageHeightPt = pdf.internal.pageSize.getHeight();
 
-        var imgWidthPt = pageWidthPt;
+        // Convert canvas px → pt scale (A4 width in pt is ~595)
+        var imgWidthPt  = pageWidthPt;
         var imgHeightPt = (canvas.height * imgWidthPt) / canvas.width;
-        var totalPages = Math.max(1, Math.ceil(imgHeightPt / pageHeightPt));
+        var totalPages  = Math.max(1, Math.ceil(imgHeightPt / pageHeightPt));
+
+        // Slicing: how many canvas pixels correspond to one A4 page height
         var pageCanvasHeight = (canvas.width * pageHeightPt) / imgWidthPt;
 
         for(var i = 0; i < totalPages; i++){
-          var sliceHeight = Math.min(pageCanvasHeight, canvas.height - i * pageCanvasHeight);
+          var sliceHeightPx = Math.min(pageCanvasHeight, canvas.height - i * pageCanvasHeight);
           var pageCanvas = document.createElement('canvas');
-          pageCanvas.width = canvas.width;
-          pageCanvas.height = sliceHeight;
+          pageCanvas.width  = canvas.width;
+          pageCanvas.height = Math.ceil(sliceHeightPx);
           var ctx = pageCanvas.getContext('2d');
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
           ctx.drawImage(
             canvas,
-            0, i * pageCanvasHeight, canvas.width, sliceHeight,
+            0, Math.floor(i * pageCanvasHeight), canvas.width, Math.ceil(sliceHeightPx),
             0, 0, pageCanvas.width, pageCanvas.height
           );
-          var imgData = pageCanvas.toDataURL('image/jpeg', 0.92);
+          var imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
           if(i > 0) pdf.addPage();
-          var sliceHeightPt = (sliceHeight * imgWidthPt) / canvas.width;
+          var sliceHeightPt = (sliceHeightPx * imgWidthPt) / canvas.width;
           pdf.addImage(imgData, 'JPEG', 0, 0, imgWidthPt, sliceHeightPt);
         }
 
@@ -873,7 +904,6 @@
       });
     });
   }
-
   function downloadPdf(){
     if(!editor.value.trim()){ showToast('Nothing to download'); return; }
     showToast('Generating PDF…');

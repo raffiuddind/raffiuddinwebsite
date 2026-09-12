@@ -105,7 +105,6 @@
   .pagecount-text span{font-size:0.82rem;color:#8a9aa8;font-weight:300}
   .pagecount-hint{font-size:0.78rem;color:#7a8b9e;letter-spacing:0.05em;max-width:340px;line-height:1.5;border-left:1px solid #2c353f;padding-left:1.2rem}
   .pagecount-hint em{color:#b1bfce;font-style:normal;font-weight:500}
-
   .convert-intro{font-size:1rem;color:#9aa8b9;font-weight:300;max-width:780px;border-left:2px solid #3e4a56;padding-left:1.2rem;margin-bottom:2rem}
   .convert-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
   .convert-panel{border:1px solid #2c353f;background:rgba(10,14,19,.6);padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem}
@@ -143,7 +142,6 @@
   .convert-preview ul{padding-left:1.2rem;margin-bottom:.5rem}
   .convert-preview strong{color:#eef2f8}
   .convert-preview a{color:#b9c7d6}
-
   .compress-intro{font-size:1rem;color:#9aa8b9;font-weight:300;max-width:820px;border-left:2px solid #3e4a56;padding-left:1.2rem;margin-bottom:2rem}
   .compress-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
   .compress-panel{border:1px solid #2c353f;background:rgba(10,14,19,.6);padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem}
@@ -186,7 +184,6 @@
   .compress-status.ok{color:#b8e0c4;border-color:#4f7a5c;background:rgba(79,122,92,.12)}
   .compress-status.err{color:#ffb3b3;border-color:#8a4040;background:rgba(138,64,64,.12)}
   .compress-note{font-size:0.78rem;color:#7a8b9e;letter-spacing:.03em;line-height:1.55;border-left:2px solid #2c353f;padding-left:.8rem}
-
   .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1a1f26;border:1px solid #4f5d6b;color:#eef2f8;padding:.9rem 1.8rem;font-size:.85rem;letter-spacing:.08em;transition:transform .35s ease;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.6);max-width:80vw;text-align:center}
   .toast.show{transform:translateX(-50%) translateY(0)}
   .resume-glance{margin:3rem 0 1.5rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;border-top:1px solid #21272e;padding-top:2.5rem}
@@ -198,7 +195,6 @@
   .footer a{color:#8a9aa8;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
   .footer a:hover{border-bottom-color:#5f6b7a;color:#cbd5e1}
   #pdfMeasureHost{position:fixed;left:-99999px;top:0;width:210mm;visibility:hidden;pointer-events:none;z-index:-1}
-
   @media (max-width:1000px){.editor-container{grid-template-columns:1fr}#resumeEditor,#resumePreview{min-height:380px}.convert-grid,.compress-grid{grid-template-columns:1fr}}
   @media (max-width:800px){.contact-container{grid-template-columns:1fr;gap:2rem}}
   @media (max-width:700px){
@@ -248,7 +244,6 @@
     <button class="tab-btn" data-tab="contact">Contact</button>
   </div>
 
-  <!-- HOME -->
   <div id="tab-home" class="tab-content active">
     <div class="resume-tag" style="margin-top:1.5rem;">Senior Java Technical Lead · 12+ years · FIX protocol · AI-assisted</div>
     <h1>Hi, I'm Raffiuddin Shaik.</h1>
@@ -265,7 +260,6 @@
     </div>
   </div>
 
-  <!-- INSIGHTS -->
   <div id="tab-insights" class="tab-content">
     <h2 style="margin-top:1.5rem;">Insights</h2>
     <div class="blog-grid">
@@ -278,7 +272,6 @@
     </div>
   </div>
 
-  <!-- RESUME -->
   <div id="tab-resume" class="tab-content">
     <h2 style="margin-top:1.5rem;">Resume Workspace</h2>
     <div class="resume-toolbar">
@@ -325,7 +318,6 @@
     </div>
   </div>
 
-  <!-- CONVERT -->
   <div id="tab-convert" class="tab-content">
     <h2 style="margin-top:1.5rem;">File Converter</h2>
     <p class="convert-intro">
@@ -367,7 +359,6 @@
     </div>
   </div>
 
-  <!-- COMPRESS -->
   <div id="tab-compress" class="tab-content">
     <h2 style="margin-top:1.5rem;">Compress &amp; Decompress</h2>
     <p class="compress-intro">
@@ -442,7 +433,6 @@
     </div>
   </div>
 
-  <!-- CONTACT -->
   <div id="tab-contact" class="tab-content">
     <h2 style="margin-top:1.5rem;">Contact</h2>
     <div class="contact-container">
@@ -525,6 +515,20 @@
     showToast('Downloaded: ' + filename);
   }
   function baseOut(name, ext){ return name.replace(/\.[^.]+$/, '') + '.' + ext; }
+
+  /* Lazy-load helper (used by jsPDF / html2canvas / JSZip / SheetJS) */
+  function loadScript(src){
+    return new Promise(function(resolve, reject){
+      // Reuse if already loaded
+      var existing = document.querySelector('script[src="' + src + '"]');
+      if(existing){ resolve(); return; }
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = function(){ resolve(); };
+      s.onerror = function(){ reject(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
 
   /* ============ MARKDOWN PARSER ============ */
   function inlineFormat(text){
@@ -806,42 +810,84 @@
     var wordHtml = buildStyledHtml(editor.value, true);
     triggerDownload(new Blob(['\ufeff' + wordHtml], {type:'application/msword;charset=utf-8'}), 'raffiuddin-shaik-resume.doc');
   }
+
+  /* ============================================================
+     RESUME PDF — real .pdf via jsPDF + html2canvas
+     ============================================================ */
+  function renderToPdf(htmlBody, cssText, outFilename){
+    return Promise.all([
+      window.jspdf ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),
+      window.html2canvas ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
+    ]).then(function(){
+      var renderRoot = document.createElement('div');
+      renderRoot.style.position = 'fixed';
+      renderRoot.style.left = '-99999px';
+      renderRoot.style.top = '0';
+      renderRoot.style.width = '794px';
+      renderRoot.style.background = '#fff';
+      renderRoot.style.padding = '37px 45px';
+      renderRoot.style.boxSizing = 'border-box';
+      renderRoot.innerHTML = '<style>' + cssText + '</style>' + htmlBody;
+      document.body.appendChild(renderRoot);
+
+      return html2canvas(renderRoot, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        windowWidth: 794
+      }).then(function(canvas){
+        if(renderRoot.parentNode) document.body.removeChild(renderRoot);
+
+        var jsPDF = window.jspdf.jsPDF;
+        var pdf = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait' });
+        var pageWidthPt  = pdf.internal.pageSize.getWidth();
+        var pageHeightPt = pdf.internal.pageSize.getHeight();
+
+        var imgWidthPt = pageWidthPt;
+        var imgHeightPt = (canvas.height * imgWidthPt) / canvas.width;
+        var totalPages = Math.max(1, Math.ceil(imgHeightPt / pageHeightPt));
+        var pageCanvasHeight = (canvas.width * pageHeightPt) / imgWidthPt;
+
+        for(var i = 0; i < totalPages; i++){
+          var sliceHeight = Math.min(pageCanvasHeight, canvas.height - i * pageCanvasHeight);
+          var pageCanvas = document.createElement('canvas');
+          pageCanvas.width = canvas.width;
+          pageCanvas.height = sliceHeight;
+          var ctx = pageCanvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          ctx.drawImage(
+            canvas,
+            0, i * pageCanvasHeight, canvas.width, sliceHeight,
+            0, 0, pageCanvas.width, pageCanvas.height
+          );
+          var imgData = pageCanvas.toDataURL('image/jpeg', 0.92);
+          if(i > 0) pdf.addPage();
+          var sliceHeightPt = (sliceHeight * imgWidthPt) / canvas.width;
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgWidthPt, sliceHeightPt);
+        }
+
+        pdf.save(outFilename);
+        showToast('Downloaded: ' + outFilename);
+      });
+    });
+  }
+
   function downloadPdf(){
+    if(!editor.value.trim()){ showToast('Nothing to download'); return; }
+    showToast('Generating PDF…');
     var body = mdToHtml(editor.value);
     var css = getCompactCss();
-    var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8">' +
-               '<title>Raffiuddin Shaik — Resume</title>' +
-               '<style>' + css + '</style></head><body>' + body + '</body></html>';
-
-    var oldIframe = document.getElementById('__pdf_iframe__');
-    if(oldIframe && oldIframe.parentNode) oldIframe.parentNode.removeChild(oldIframe);
-
-    var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
-    var url  = URL.createObjectURL(blob);
-
-    var iframe = document.createElement('iframe');
-    iframe.id = '__pdf_iframe__';
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0'; iframe.style.bottom = '0';
-    iframe.style.width = '0'; iframe.style.height = '0';
-    iframe.style.border = '0'; iframe.style.visibility = 'hidden';
-    document.body.appendChild(iframe);
-
-    iframe.onload = function(){
-      setTimeout(function(){
-        try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); showToast('Print dialog opened — choose "Save as PDF"'); }
-        catch(err){ showToast('Could not open print dialog.'); }
-        setTimeout(function(){ if(iframe.parentNode) iframe.parentNode.removeChild(iframe); URL.revokeObjectURL(url); }, 60000);
-      }, 250);
-    };
-    iframe.src = url;
+    renderToPdf(body, css, 'raffiuddin-shaik-resume.pdf')
+      .catch(function(err){ showToast('PDF generation failed: ' + err.message); });
   }
 
   document.getElementById('dlTxt').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadTxt(); });
   document.getElementById('dlMd').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadMd(); });
   document.getElementById('dlHtml').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadHtml(); });
   document.getElementById('dlDoc').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadDoc(); });
-  document.getElementById('dlPdf').addEventListener('click', function(){ if(!editor.value.trim()){showToast('Nothing to download');return;} downloadPdf(); });
+  document.getElementById('dlPdf').addEventListener('click', function(){ downloadPdf(); });
 
   var resumeInitialized = false;
   document.querySelector('[data-tab="resume"]').addEventListener('click', function(){
@@ -961,26 +1007,16 @@
   });
 
   /* Lazy-load JSZip + SheetJS */
-  function loadLib(src){
-    return new Promise(function(resolve, reject){
-      var s = document.createElement('script');
-      s.src = src;
-      s.onload = function(){ resolve(); };
-      s.onerror = function(){ reject(new Error('Failed to load ' + src)); };
-      document.head.appendChild(s);
-    });
-  }
   function ensureLibs(){
     if(convertState.libsLoaded) return Promise.resolve();
     if(convertState.libsPromise) return convertState.libsPromise;
     var p = Promise.resolve();
-    if(!window.JSZip) p = p.then(function(){ return loadLib('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'); });
-    if(!window.XLSX)  p = p.then(function(){ return loadLib('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); });
+    if(!window.JSZip) p = p.then(function(){ return loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'); });
+    if(!window.XLSX)  p = p.then(function(){ return loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); });
     convertState.libsPromise = p.then(function(){ convertState.libsLoaded = true; });
     return convertState.libsPromise;
   }
 
-  /* CSV helpers */
   function parseCsvLine(line){
     var out = [], cur = '', inQ = false;
     for(var i=0;i<line.length;i++){
@@ -1015,7 +1051,6 @@
     return html + '</tbody></table>';
   }
 
-  /* Extract plain text from an entry (async for DOCX) */
   function extractText(entry){
     if(entry.text != null) return Promise.resolve(entry.text);
     if(entry.isImage) return Promise.resolve('[Image: ' + entry.name + ']');
@@ -1046,7 +1081,6 @@
     return Promise.resolve('');
   }
 
-  /* Build HTML body for a given entry + text */
   function buildHtmlBody(entry, text){
     var ext = entry.ext;
     if(ext === 'md' || ext === 'markdown') return mdToHtml(text);
@@ -1182,10 +1216,9 @@
     return text.split('\n').filter(function(l){return l.trim();}).map(function(l){ return [l]; });
   }
 
-  /* ============================================================
-     FIXED PDF EXPORT — uses Blob URL + iframe onload
-     ============================================================ */
+  /* Convert tab PDF — real .pdf via jsPDF + html2canvas */
   function exportPdf(entry, text){
+    showToast('Generating PDF…');
     var body = buildHtmlBody(entry, text);
     var css = "@page{size:A4;margin:14mm;}" +
               "html,body{margin:0;padding:0;background:#fff;}" +
@@ -1199,42 +1232,9 @@
               "th{background:#f0f0f0;}" +
               "ul{padding-left:14pt;}" +
               "img{max-width:100%;height:auto;display:block;margin:0 auto;}";
-
-    var html = '<!DOCTYPE html>\n<html><head><meta charset="utf-8">' +
-               '<title>' + escapeHtml(entry.name) + '</title>' +
-               '<style>' + css + '</style></head><body>' + body + '</body></html>';
-
-    var old = document.getElementById('__cvt_pdf_iframe__');
-    if(old && old.parentNode) old.parentNode.removeChild(old);
-
-    var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
-    var url  = URL.createObjectURL(blob);
-
-    var iframe = document.createElement('iframe');
-    iframe.id = '__cvt_pdf_iframe__';
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0'; iframe.style.bottom = '0';
-    iframe.style.width = '0'; iframe.style.height = '0';
-    iframe.style.border = '0'; iframe.style.visibility = 'hidden';
-    document.body.appendChild(iframe);
-
-    iframe.onload = function(){
-      setTimeout(function(){
-        try{
-          iframe.contentWindow.focus();
-          iframe.contentWindow.print();
-          showToast('Print dialog opened — choose "Save as PDF"');
-        }catch(err){
-          showToast('Could not open print dialog: ' + err.message);
-        }
-        setTimeout(function(){
-          if(iframe.parentNode) iframe.parentNode.removeChild(iframe);
-          URL.revokeObjectURL(url);
-        }, 60000);
-      }, 250);
-    };
-
-    iframe.src = url;
+    var outName = entry.name.replace(/\.[^.]+$/, '') + '.pdf';
+    renderToPdf(body, css, outName)
+      .catch(function(err){ showToast('PDF generation failed: ' + err.message); });
   }
 
   function handleConvert(entry, target){
@@ -1243,12 +1243,10 @@
     if(target === 'pdf'){
       if(entry.text != null){
         exportPdf(entry, entry.text);
-      } else if(entry.isImage){
-        exportPdf(entry, '[Image: ' + entry.name + ']');
       } else {
         extractText(entry).then(function(text){ exportPdf(entry, text); });
       }
-      setCvtStatus('Print dialog opened for ' + entry.name + ' → PDF', 'ok');
+      setCvtStatus('PDF generation started for ' + entry.name, 'ok');
       return;
     }
 

@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Raffiuddin Shaik · Software Engineer</title>
 <style>
+  /* ---------- RESET & BASE ---------- */
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:#0b0e14;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#e6e9f0;line-height:1.6;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased}
+
+  /* screen-reader-only utility */
+  .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
   .luxe-wrapper{max-width:1200px;width:100%;background:rgba(18,22,28,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2px solid #2c353f;box-shadow:0 0 0 1px #1a1f26,0 20px 40px -15px rgba(0,0,0,.8);padding:2.5rem 2rem;transition:border-color .3s ease,box-shadow .3s ease;position:relative}
   .luxe-wrapper:hover{border-color:#3e4a56;box-shadow:0 0 0 1px #252c34,0 25px 50px -12px rgba(0,0,0,.9)}
   .luxe-wrapper::before{content:"";position:absolute;inset:-1px;border:1px solid rgba(255,255,255,.02);pointer-events:none;z-index:2}
@@ -65,12 +70,13 @@
   .btn-submit:hover{background:rgba(255,255,255,.04);border-color:#5f6b7a;color:#fff}
   .resume-toolbar{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:2rem;padding:1.5rem;border:1px solid #2c353f;background:rgba(10,14,19,.5)}
   .file-upload-wrapper{position:relative;display:inline-block}
-  .file-upload-wrapper input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .file-upload-wrapper input[type="file"]{position:absolute;left:-99999px;top:0;width:1px;height:1px;opacity:0}
   .btn-tool{background:transparent;border:1px solid #3e4a56;color:#d2dce8;padding:.7rem 1.5rem;font-family:'Inter',sans-serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s ease;white-space:nowrap;display:inline-flex;align-items:center;gap:.5rem}
   .btn-tool:hover{background:rgba(255,255,255,.05);border-color:#5f6b7a;color:#fff}
   .btn-tool.primary{border-color:#5f6b7a;background:rgba(95,107,122,.15);color:#eef2f8}
   .btn-tool.primary:hover{background:rgba(95,107,122,.3)}
   .btn-tool:disabled{opacity:.4;cursor:not-allowed}
+  label.btn-tool{user-select:none}
   .toolbar-divider{width:1px;height:2rem;background:#2c353f}
   .editor-container{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
   .editor-pane{display:flex;flex-direction:column;border:1px solid #2c353f;background:rgba(10,14,19,.6)}
@@ -87,23 +93,27 @@
   #resumePreview code{background:rgba(95,107,122,.18);padding:1px 5px;font-size:.85em;font-family:'SF Mono','Fira Code',monospace}
   #resumePreview ul{list-style:none;margin-bottom:1rem}
   #resumePreview ul li{position:relative;padding-left:1.2rem;margin-bottom:.4rem;color:#b1bfce}
-  #resumePreview ul li::before{content:"—";position:absolute;left:0;color:#5f6b7a}
+  #resumePreview ul li::before{content:"•";position:absolute;left:0;color:#5f6b7a}
   #resumePreview hr{border:none;border-top:1px solid #2c353f;margin:1.2rem 0}
+  #resumePreview table{width:100%;border-collapse:collapse;margin:0 0 1rem;font-size:.88rem}
+  #resumePreview th,#resumePreview td{border:1px solid #2c353f;padding:.4rem .6rem;text-align:left;color:#d2dce8;vertical-align:top}
+  #resumePreview th{background:rgba(95,107,122,.12);font-weight:500;color:#eef2f8}
+  #resumePreview td:first-child{font-weight:500;color:#d6deea;width:32%}
   .download-panel{padding:1.5rem;border:1px solid #2c353f;background:rgba(10,14,19,.5);margin-bottom:2rem}
   .download-panel h4{margin-bottom:1rem}
   .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
   .pagecount-panel{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.2rem 1.5rem;margin-bottom:2rem;border:1px solid #2c353f;background:rgba(10,14,19,.65);flex-wrap:wrap}
   .pagecount-info{display:flex;align-items:center;gap:1.2rem}
-  .pagecount-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:64px;padding:0.6rem 0.9rem;border:1px solid #3e4a56;background:rgba(95,107,122,.12);transition:border-color .25s ease,background .25s ease}
+  .pagecount-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:64px;padding:.6rem .9rem;border:1px solid #3e4a56;background:rgba(95,107,122,.12);transition:border-color .25s ease,background .25s ease}
   .pagecount-badge.good{border-color:#4f7a5c;background:rgba(79,122,92,.16)}
   .pagecount-badge.warn{border-color:#8a7340;background:rgba(138,115,64,.16)}
   .pagecount-badge.bad{border-color:#8a4040;background:rgba(138,64,64,.16)}
   .pagecount-num{font-family:'Space Grotesk','Inter',sans-serif;font-size:1.6rem;font-weight:400;color:#eef2f8;line-height:1}
-  .pagecount-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:#7a8b9e;margin-top:0.35rem}
-  .pagecount-text{display:flex;flex-direction:column;gap:0.2rem}
-  .pagecount-text strong{font-size:0.95rem;color:#eef2f8;font-weight:500;letter-spacing:0.02em}
-  .pagecount-text span{font-size:0.82rem;color:#8a9aa8;font-weight:300}
-  .pagecount-hint{font-size:0.78rem;color:#7a8b9e;letter-spacing:0.05em;max-width:340px;line-height:1.5;border-left:1px solid #2c353f;padding-left:1.2rem}
+  .pagecount-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:#7a8b9e;margin-top:.35rem}
+  .pagecount-text{display:flex;flex-direction:column;gap:.2rem}
+  .pagecount-text strong{font-size:.95rem;color:#eef2f8;font-weight:500;letter-spacing:.02em}
+  .pagecount-text span{font-size:.82rem;color:#8a9aa8;font-weight:300}
+  .pagecount-hint{font-size:.78rem;color:#7a8b9e;letter-spacing:.05em;max-width:340px;line-height:1.5;border-left:1px solid #2c353f;padding-left:1.2rem}
   .pagecount-hint em{color:#b1bfce;font-style:normal;font-weight:500}
   .convert-intro{font-size:1rem;color:#9aa8b9;font-weight:300;max-width:780px;border-left:2px solid #3e4a56;padding-left:1.2rem;margin-bottom:2rem}
   .convert-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
@@ -113,8 +123,8 @@
   .convert-dropzone:hover,.convert-dropzone.dragover{border-color:#5f6b7a;background:rgba(95,107,122,.08)}
   .convert-dropzone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
   .convert-dropzone .dz-icon{font-size:2rem;color:#5f6b7a;margin-bottom:.6rem;display:block}
-  .convert-dropzone .dz-title{font-size:0.95rem;color:#d2dce8;margin-bottom:.3rem}
-  .convert-dropzone .dz-sub{font-size:0.78rem;color:#7a8b9e;letter-spacing:.05em}
+  .convert-dropzone .dz-title{font-size:.95rem;color:#d2dce8;margin-bottom:.3rem}
+  .convert-dropzone .dz-sub{font-size:.78rem;color:#7a8b9e;letter-spacing:.05em}
   .convert-filelist{display:flex;flex-direction:column;gap:.6rem}
   .convert-file{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border:1px solid #2c353f;background:rgba(15,19,24,.5);font-size:.85rem;cursor:pointer;transition:border-color .2s}
   .convert-file:hover{border-color:#4f5d6b}
@@ -150,8 +160,8 @@
   .compress-dropzone:hover,.compress-dropzone.dragover{border-color:#5f6b7a;background:rgba(95,107,122,.08)}
   .compress-dropzone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
   .compress-dropzone .dz-icon{font-size:2rem;color:#5f6b7a;margin-bottom:.6rem;display:block}
-  .compress-dropzone .dz-title{font-size:0.95rem;color:#d2dce8;margin-bottom:.3rem}
-  .compress-dropzone .dz-sub{font-size:0.78rem;color:#7a8b9e;letter-spacing:.05em}
+  .compress-dropzone .dz-title{font-size:.95rem;color:#d2dce8;margin-bottom:.3rem}
+  .compress-dropzone .dz-sub{font-size:.78rem;color:#7a8b9e;letter-spacing:.05em}
   .compress-filelist{display:flex;flex-direction:column;gap:.6rem;max-height:280px;overflow-y:auto}
   .compress-file{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border:1px solid #2c353f;background:rgba(15,19,24,.5);font-size:.85rem}
   .compress-file-info{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1}
@@ -162,7 +172,7 @@
   .compress-file-remove:hover{border-color:#8a4040;color:#ffb3b3;background:rgba(138,64,64,.15)}
   .compress-controls{display:flex;flex-direction:column;gap:1rem}
   .control-row{display:flex;flex-direction:column;gap:.4rem}
-  .control-row label{font-size:0.75rem;letter-spacing:.15em;text-transform:uppercase;color:#7a8b9e}
+  .control-row label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#7a8b9e}
   .control-row select,.control-row input[type="text"]{background:rgba(10,14,19,.8);border:1px solid #2c353f;color:#e6e9f0;padding:.7rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
   .control-row select:focus,.control-row input[type="text"]:focus{border-color:#4f5d6b}
   .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
@@ -183,7 +193,7 @@
   .compress-status{padding:1rem 1.2rem;border:1px solid #2c353f;background:rgba(10,14,19,.5);font-size:.85rem;color:#8a9aa8;line-height:1.55;min-height:3rem;display:flex;align-items:center;gap:.6rem}
   .compress-status.ok{color:#b8e0c4;border-color:#4f7a5c;background:rgba(79,122,92,.12)}
   .compress-status.err{color:#ffb3b3;border-color:#8a4040;background:rgba(138,64,64,.12)}
-  .compress-note{font-size:0.78rem;color:#7a8b9e;letter-spacing:.03em;line-height:1.55;border-left:2px solid #2c353f;padding-left:.8rem}
+  .compress-note{font-size:.78rem;color:#7a8b9e;letter-spacing:.03em;line-height:1.55;border-left:2px solid #2c353f;padding-left:.8rem}
   .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1a1f26;border:1px solid #4f5d6b;color:#eef2f8;padding:.9rem 1.8rem;font-size:.85rem;letter-spacing:.08em;transition:transform .35s ease;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.6);max-width:80vw;text-align:center}
   .toast.show{transform:translateX(-50%) translateY(0)}
   .resume-glance{margin:3rem 0 1.5rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;border-top:1px solid #21272e;padding-top:2.5rem}
@@ -236,14 +246,15 @@
   </header>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="home">Home</button>
-    <button class="tab-btn" data-tab="insights">Insights</button>
-    <button class="tab-btn" data-tab="resume">Resume</button>
-    <button class="tab-btn" data-tab="convert">Convert</button>
-    <button class="tab-btn" data-tab="compress">Compress</button>
-    <button class="tab-btn" data-tab="contact">Contact</button>
+    <button class="tab-btn active" data-tab="home" type="button">Home</button>
+    <button class="tab-btn" data-tab="insights" type="button">Insights</button>
+    <button class="tab-btn" data-tab="resume" type="button">Resume</button>
+    <button class="tab-btn" data-tab="convert" type="button">Convert</button>
+    <button class="tab-btn" data-tab="compress" type="button">Compress</button>
+    <button class="tab-btn" data-tab="contact" type="button">Contact</button>
   </div>
 
+  <!-- ==================== HOME ==================== -->
   <div id="tab-home" class="tab-content active">
     <div class="resume-tag" style="margin-top:1.5rem;">Senior Java Technical Lead · 12+ years · FIX protocol · AI-assisted</div>
     <h1>Hi, I'm Raffiuddin Shaik.</h1>
@@ -260,6 +271,7 @@
     </div>
   </div>
 
+  <!-- ==================== INSIGHTS ==================== -->
   <div id="tab-insights" class="tab-content">
     <h2 style="margin-top:1.5rem;">Insights</h2>
     <div class="blog-grid">
@@ -272,16 +284,17 @@
     </div>
   </div>
 
+  <!-- ==================== RESUME ==================== -->
   <div id="tab-resume" class="tab-content">
     <h2 style="margin-top:1.5rem;">Resume Workspace</h2>
     <div class="resume-toolbar">
       <div class="file-upload-wrapper">
-        <button class="btn-tool">📎 Upload File</button>
+        <label for="resumeFileInput" class="btn-tool">📎 Upload File</label>
         <input type="file" id="resumeFileInput" accept=".txt,.md,.html,.htm,.json,.docx,.pdf">
       </div>
       <div class="toolbar-divider"></div>
-      <button class="btn-tool" id="btnLoadSample">↺ Load Sample</button>
-      <button class="btn-tool" id="btnClear">✕ Clear</button>
+      <button class="btn-tool" id="btnLoadSample" type="button">↺ Load Sample</button>
+      <button class="btn-tool" id="btnClear" type="button">✕ Clear</button>
     </div>
     <div class="editor-container">
       <div class="editor-pane">
@@ -309,15 +322,16 @@
     <div class="download-panel">
       <h4>Download as</h4>
       <div class="download-buttons">
-        <button class="btn-tool primary" id="dlPdf">⬇ PDF</button>
-        <button class="btn-tool primary" id="dlDoc">⬇ Word (.doc)</button>
-        <button class="btn-tool primary" id="dlHtml">⬇ HTML</button>
-        <button class="btn-tool primary" id="dlTxt">⬇ Plain Text</button>
-        <button class="btn-tool primary" id="dlMd">⬇ Markdown</button>
+        <button class="btn-tool primary" id="dlPdf" type="button">⬇ PDF</button>
+        <button class="btn-tool primary" id="dlDoc" type="button">⬇ Word (.doc)</button>
+        <button class="btn-tool primary" id="dlHtml" type="button">⬇ HTML</button>
+        <button class="btn-tool primary" id="dlTxt" type="button">⬇ Plain Text</button>
+        <button class="btn-tool primary" id="dlMd" type="button">⬇ Markdown</button>
       </div>
     </div>
   </div>
 
+  <!-- ==================== CONVERT ==================== -->
   <div id="tab-convert" class="tab-content">
     <h2 style="margin-top:1.5rem;">File Converter</h2>
     <p class="convert-intro">
@@ -328,6 +342,7 @@
       <div class="convert-panel">
         <h3>1 · Upload files</h3>
         <div class="convert-dropzone" id="convertDropzone">
+          <label for="convertFileInput" class="sr-only">Upload files to convert</label>
           <input type="file" id="convertFileInput" multiple
                  accept=".txt,.md,.markdown,.html,.htm,.json,.csv,.xml,.log,.docx,.doc,.pdf,.png,.jpg,.jpeg,.gif,.webp,.bmp,.svg">
           <span class="dz-icon">⤴</span>
@@ -336,21 +351,21 @@
         </div>
         <div class="convert-filelist" id="convertFileList"></div>
         <div class="convert-actions">
-          <button class="btn-tool" id="convertClearAll" disabled>✕ Clear all</button>
+          <button class="btn-tool" id="convertClearAll" type="button" disabled>✕ Clear all</button>
         </div>
       </div>
 
       <div class="convert-panel">
         <h3>2 · Choose output</h3>
         <div class="convert-targets" id="convertTargets">
-          <button class="target-btn" data-target="html" disabled>→ HTML</button>
-          <button class="target-btn" data-target="docx" disabled>→ Word (.docx)</button>
-          <button class="target-btn" data-target="xlsx" disabled>→ Excel (.xlsx)</button>
-          <button class="target-btn" data-target="pdf"  disabled>→ PDF</button>
-          <button class="target-btn" data-target="csv"  disabled>→ CSV</button>
-          <button class="target-btn" data-target="json" disabled>→ JSON</button>
-          <button class="target-btn" data-target="md"   disabled>→ Markdown</button>
-          <button class="target-btn" data-target="txt"  disabled>→ Plain Text</button>
+          <button class="target-btn" data-target="html" type="button" disabled>→ HTML</button>
+          <button class="target-btn" data-target="docx" type="button" disabled>→ Word (.docx)</button>
+          <button class="target-btn" data-target="xlsx" type="button" disabled>→ Excel (.xlsx)</button>
+          <button class="target-btn" data-target="pdf"  type="button" disabled>→ PDF</button>
+          <button class="target-btn" data-target="csv"  type="button" disabled>→ CSV</button>
+          <button class="target-btn" data-target="json" type="button" disabled>→ JSON</button>
+          <button class="target-btn" data-target="md"   type="button" disabled>→ Markdown</button>
+          <button class="target-btn" data-target="txt"  type="button" disabled>→ Plain Text</button>
         </div>
         <h3 style="margin-top:1.2rem">3 · Result</h3>
         <div class="convert-status" id="convertStatus">Upload a file to get started.</div>
@@ -359,6 +374,7 @@
     </div>
   </div>
 
+  <!-- ==================== COMPRESS ==================== -->
   <div id="tab-compress" class="tab-content">
     <h2 style="margin-top:1.5rem;">Compress &amp; Decompress</h2>
     <p class="compress-intro">
@@ -369,6 +385,7 @@
       <div class="compress-panel">
         <h3>1 · Add files</h3>
         <div class="compress-dropzone" id="compressDropzone">
+          <label for="compressFileInput" class="sr-only">Upload files to compress</label>
           <input type="file" id="compressFileInput" multiple>
           <span class="dz-icon">⤵</span>
           <div class="dz-title">Drop files or a .zip here, or click to browse</div>
@@ -376,12 +393,12 @@
         </div>
         <div class="compress-filelist" id="compressFileList"></div>
         <div class="compress-actions">
-          <button class="btn-tool" id="compressClearAll" disabled>✕ Clear all</button>
+          <button class="btn-tool" id="compressClearAll" type="button" disabled>✕ Clear all</button>
         </div>
         <h3 style="margin-top:1.4rem">2 · Options</h3>
         <div class="compress-controls">
           <div class="control-row">
-            <label>Compression level</label>
+            <label for="compressLevel">Compression level</label>
             <select id="compressLevel">
               <option value="1">Fastest (level 1)</option>
               <option value="6" selected>Balanced (level 6)</option>
@@ -389,16 +406,16 @@
             </select>
           </div>
           <div class="control-row">
-            <label>Output archive name</label>
+            <label for="compressArchiveName">Output archive name</label>
             <input type="text" id="compressArchiveName" placeholder="archive" value="archive">
           </div>
           <div class="control-row">
-            <label>Algorithm</label>
-            <div class="mode-grid" id="compressMode">
-              <button class="mode-btn active" data-mode="zip">ZIP (multi-file)</button>
-              <button class="mode-btn" data-mode="gzip">GZIP (single)</button>
-              <button class="mode-btn" data-mode="deflate">DEFLATE (single)</button>
-              <button class="mode-btn" data-mode="decompress">Decompress .zip</button>
+            <span class="control-row-label" style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#7a8b9e;display:block">Algorithm</span>
+            <div class="mode-grid" id="compressMode" role="group" aria-label="Compression algorithm">
+              <button class="mode-btn active" data-mode="zip" type="button">ZIP (multi-file)</button>
+              <button class="mode-btn" data-mode="gzip" type="button">GZIP (single)</button>
+              <button class="mode-btn" data-mode="deflate" type="button">DEFLATE (single)</button>
+              <button class="mode-btn" data-mode="decompress" type="button">Decompress .zip</button>
             </div>
           </div>
         </div>
@@ -407,24 +424,15 @@
       <div class="compress-panel">
         <h3>3 · Run</h3>
         <div class="action-row">
-          <button class="action-btn primary" id="compressRun" disabled>⬇ Compress</button>
-          <button class="action-btn" id="compressReset" disabled>↺ Reset</button>
+          <button class="action-btn primary" id="compressRun" type="button" disabled>⬇ Compress</button>
+          <button class="action-btn" id="compressReset" type="button" disabled>↺ Reset</button>
         </div>
         <h3 style="margin-top:1.4rem">Result</h3>
         <div class="compress-status" id="compressStatus">Add files to get started.</div>
         <div class="compress-stats">
-          <div class="stat-box">
-            <div class="stat-num" id="statOriginal">—</div>
-            <div class="stat-lbl">Original</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num" id="statOutput">—</div>
-            <div class="stat-lbl">Output</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num" id="statRatio">—</div>
-            <div class="stat-lbl">Saved</div>
-          </div>
+          <div class="stat-box"><div class="stat-num" id="statOriginal">—</div><div class="stat-lbl">Original</div></div>
+          <div class="stat-box"><div class="stat-num" id="statOutput">—</div><div class="stat-lbl">Output</div></div>
+          <div class="stat-box"><div class="stat-num" id="statRatio">—</div><div class="stat-lbl">Saved</div></div>
         </div>
         <div class="compress-note" id="compressNote">
           Tip: For maximum savings on mixed files, choose <em>ZIP</em> with level 9. For a single large text/JSON/log file, try <em>GZIP</em> or <em>DEFLATE</em>.
@@ -433,6 +441,7 @@
     </div>
   </div>
 
+  <!-- ==================== CONTACT ==================== -->
   <div id="tab-contact" class="tab-content">
     <h2 style="margin-top:1.5rem;">Contact</h2>
     <div class="contact-container">
@@ -464,7 +473,9 @@
 (function(){
   'use strict';
 
-  /* ============ TAB SWITCHING ============ */
+  /* ============================================================
+     TAB SWITCHING
+     ============================================================ */
   var tabButtons = document.querySelectorAll('.tab-btn');
   var tabContents = {
     home: document.getElementById('tab-home'),
@@ -481,7 +492,9 @@
   tabButtons.forEach(function(b){ b.addEventListener('click', function(){ activateTab(b.dataset.tab); }); });
   activateTab('home');
 
-  /* ============ TOAST ============ */
+  /* ============================================================
+     TOAST
+     ============================================================ */
   var toastEl = document.getElementById('toast');
   var toastTimeout;
   function showToast(msg){
@@ -491,7 +504,9 @@
     toastTimeout = setTimeout(function(){ toastEl.classList.remove('show'); }, 2800);
   }
 
-  /* ============ SHARED HELPERS ============ */
+  /* ============================================================
+     SHARED HELPERS
+     ============================================================ */
   function escapeHtml(str){
     return String(str)
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -515,11 +530,8 @@
     showToast('Downloaded: ' + filename);
   }
   function baseOut(name, ext){ return name.replace(/\.[^.]+$/, '') + '.' + ext; }
-
-  /* Lazy-load helper (used by jsPDF / html2canvas / JSZip / SheetJS) */
   function loadScript(src){
     return new Promise(function(resolve, reject){
-      // Reuse if already loaded
       var existing = document.querySelector('script[src="' + src + '"]');
       if(existing){ resolve(); return; }
       var s = document.createElement('script');
@@ -530,23 +542,62 @@
     });
   }
 
-  /* ============ MARKDOWN PARSER ============ */
+  /* ============================================================
+     MARKDOWN PARSER (with pipe-table support)
+     ============================================================ */
   function inlineFormat(text){
     text = text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
     text = text.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<em>$2</em>');
     text = text.replace(/`([^`]+)`/g,'<code>$1</code>');
     return text;
   }
+
+  function isPipeRow(line){ return /^\s*\|.*\|\s*$/.test(line); }
+  function isSeparatorRow(cells){
+    return cells.length > 0 && cells.every(function(c){ return /^:?-{2,}:?$/.test(c.trim()); });
+  }
+  function buildPipeTable(rows){
+    var out = '<table>';
+    var headerDone = false;
+    rows.forEach(function(r){
+      var cells = r.trim().replace(/^\||\|$/g,'').split('|').map(function(c){ return c.trim(); });
+      if(isSeparatorRow(cells)) return;
+      var tag = headerDone ? 'td' : 'th';
+      out += '<tr>';
+      cells.forEach(function(c){ out += '<' + tag + '>' + inlineFormat(escapeHtml(c)) + '</' + tag + '>'; });
+      out += '</tr>';
+      headerDone = true;
+    });
+    return out + '</table>';
+  }
+
   function mdToHtml(md){
     if(!md || !md.trim()) return '<p style="color:#5f6b7a;font-style:italic;">Preview will appear here…</p>';
     var lines = md.replace(/\r\n/g,'\n').split('\n');
     var html = '', inList = false, inPara = false;
     function closeList(){ if(inList){ html += '</ul>'; inList = false; } }
     function closePara(){ if(inPara){ html += '</p>'; inPara = false; } }
+
     for(var i=0;i<lines.length;i++){
       var line = lines[i].replace(/\s+$/,'');
+
       if(!line.trim()){ closeList(); closePara(); continue; }
+
+      // Horizontal rule
       if(/^\s*([-*_])\1{2,}\s*$/.test(line)){ closeList(); closePara(); html += '<hr>'; continue; }
+
+      // Pipe table
+      if(isPipeRow(line)){
+        closeList(); closePara();
+        var tableRows = [line];
+        while(i+1 < lines.length && isPipeRow(lines[i+1])){
+          tableRows.push(lines[++i]);
+        }
+        html += buildPipeTable(tableRows);
+        continue;
+      }
+
+      // Heading
       var h = line.match(/^\s*(#{1,6})\s+(.*)$/);
       if(h){
         closeList(); closePara();
@@ -556,6 +607,8 @@
         html += '<'+tag+'>'+txt+'</'+tag+'>';
         continue;
       }
+
+      // Bullet
       var li = line.match(/^\s*[-*+]\s+(.*)$/);
       if(li){
         closePara();
@@ -563,6 +616,8 @@
         html += '<li>' + inlineFormat(escapeHtml(li[1].trim())) + '</li>';
         continue;
       }
+
+      // Paragraph
       closeList();
       if(!inPara){ html += '<p>'; inPara = true; } else { html += ' '; }
       html += inlineFormat(escapeHtml(line.trim()));
@@ -596,13 +651,15 @@
     'Senior Java Technical Lead with 12+ years of experience in enterprise application development, architecture, and production ownership. Specializes in high-volume financial messaging, FIX protocol, and event-driven architectures in investment banking. Leverages AI-assisted development (GitHub Copilot) to accelerate delivery. Proven track record of designing resilient, low-latency services processing 400K+ deals/day at 12K messages/minute peak in 24x5 production-critical environments.',
     '',
     '## Core Competencies',
-    '- Languages: Java 8, 11, 17 (OOP, Multithreading, Collections, Streams)',
-    '- Frameworks: Spring Boot, Spring Core, Spring Integration, Struts, Servlets, JSP',
-    '- Messaging: IBM MQ, TIBCO EMS, Solace, Apache Kafka, JMS',
-    '- Databases: Oracle, MySQL, JDBC, JPA/Hibernate',
-    '- CI/CD & Tools: Maven, Gradle, TeamCity, uDeploy, Git, GitHub, Splunk',
-    '- Containers: Docker, Kubernetes (Working Knowledge)',
-    '- AI Tools: GitHub Copilot, AI-assisted code generation, test automation',
+    '| Category | Technologies |',
+    '|---|---|',
+    '| Languages | Java 8, 11, 17 (OOP, Multithreading, Collections, Streams) |',
+    '| Frameworks | Spring Boot, Spring Core, Spring Integration, Struts, Servlets, JSP |',
+    '| Messaging | IBM MQ, TIBCO EMS, Solace, Apache Kafka, JMS |',
+    '| Databases | Oracle, MySQL, JDBC, JPA/Hibernate |',
+    '| CI/CD & Tools | Maven, Gradle, TeamCity, uDeploy, Git, GitHub, Splunk |',
+    '| Containers | Docker, Kubernetes (Working Knowledge) |',
+    '| AI Tools | GitHub Copilot, AI-assisted code generation, test automation |',
     '',
     '## Professional Experience',
     '',
@@ -644,14 +701,18 @@
     '- Modules: Admin, Student, Exam, Attendance, Transport, Fee, SMS, Reports',
     '',
     '## Education',
-    '- B.Tech (CSE) | Vaishnavi Inst. of Technology, Tirupati | 2008–2012 | 66.77%',
-    '- Intermediate (MPC) | State Board, A.P. | 2006–2008 | 83.30%',
-    '- S.S.C | Board of Secondary Education, A.P. | 2005–2006 | 78.83%',
+    '| Degree | Institution | Year | % |',
+    '|---|---|---|---|',
+    '| B.Tech (CSE) | Vaishnavi Inst. of Technology, Tirupati | 2008–2012 | 66.77% |',
+    '| Intermediate (MPC) | State Board, A.P. | 2006–2008 | 83.30% |',
+    '| S.S.C | Board of Secondary Education, A.P. | 2005–2006 | 78.83% |',
     '',
     '## Personal Information',
-    '- DOB: 24th June 1990',
-    '- Nationality: Indian',
-    '- Languages: English, Hindi, Urdu, Telugu',
+    '| Field | Value |',
+    '|---|---|',
+    '| DOB | 24th June 1990 |',
+    '| Nationality | Indian |',
+    '| Languages | English, Hindi, Urdu, Telugu |',
     '',
     '## Declaration',
     'I hereby declare that the above information is true to the best of my knowledge.',
@@ -659,7 +720,8 @@
     'Place: Chennai'
   ].join('\n');
 
-    function getCompactCss(){
+  /* ---------- Compact print CSS (used by preview measurement, PDF, Word) ---------- */
+  function getCompactCss(){
     return [
       "h1{font-size:18px;font-weight:700;margin:0 0 4px;padding:0 0 6px;border-bottom:2px solid #222;color:#000;line-height:1.2;}",
       "h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;padding-bottom:3px;border-bottom:1px solid #999;color:#111;line-height:1.3;}",
@@ -669,6 +731,10 @@
       "ul{margin:0 0 6px;padding-left:16px;list-style:disc;}",
       "ul li{margin:0 0 3px;color:#222;line-height:1.45;}",
       "hr{border:none;border-top:1px solid #ccc;margin:10px 0;}",
+      "table{width:100%;border-collapse:collapse;margin:0 0 8px;font-size:12px;}",
+      "th,td{border:1px solid #999;padding:3px 6px;text-align:left;vertical-align:top;line-height:1.4;color:#111;}",
+      "th{background:#f0f0f0;font-weight:700;color:#111;}",
+      "td:first-child{font-weight:600;}",
       "strong{color:#000;font-weight:700;}",
       "em{color:#333;font-style:italic;}",
       "code{background:#f2f2f2;padding:1px 4px;font-size:11px;font-family:Consolas,'Courier New',monospace;}",
@@ -676,6 +742,19 @@
     ].join('\n');
   }
 
+  /* Scope a CSS string so each selector is prefixed with #rootId */
+  function scopeCss(cssText, rootId){
+    return cssText.replace(/(^|\})\s*([^{}@]+)\{/g, function(m, brace, sel){
+      var prefixed = sel.split(',').map(function(s){
+        s = s.trim();
+        if(!s || s.indexOf('@') === 0) return s;
+        return '#' + rootId + ' ' + s;
+      }).join(', ');
+      return brace + ' ' + prefixed + ' {';
+    });
+  }
+
+  /* ---------- Styled HTML builders for Word / HTML download ---------- */
   function buildStyledHtml(mdContent, forWord){
     var body = mdToHtml(mdContent);
     var css = getCompactCss();
@@ -692,30 +771,46 @@
            '<style>' + css + '</style></head><body>' + body + '</body></html>';
   }
 
+  /* ---------- Page-count estimator (matches renderToPdf exactly) ---------- */
   var measureHost = document.getElementById('pdfMeasureHost');
-  var MM_TO_PX = 96 / 25.4;
-  function PRINTABLE_WIDTH_PX(){ return Math.round((210 - 24) * MM_TO_PX); }
-  function PRINTABLE_HEIGHT_PX(){ return Math.round((297 - 20) * MM_TO_PX); }
-  function estimatePages(mdContent){
-    if(!mdContent || !mdContent.trim()) return 0;
+
+  // A4 in points: 595.28 × 841.89. At 794px container width:
+  var A4_W_PX = 794;
+  var A4_H_PX = Math.round((841.89 / 595.28) * A4_W_PX);  // ≈ 1123
+
+  function buildMeasureContainer(mdContent){
     var container = document.createElement('div');
-    container.style.position = 'absolute';
-    container.style.left = '-99999px'; container.style.top = '0';
-    container.style.width = PRINTABLE_WIDTH_PX() + 'px';
-    container.style.visibility = 'hidden'; container.style.pointerEvents = 'none';
-    container.style.fontFamily = "'Calibri','Segoe UI',Arial,sans-serif";
-    container.style.color = '#111'; container.style.fontSize = '9pt';
-    container.style.lineHeight = '1.25'; container.style.background = '#fff';
+    container.id = '__estimate_root__';
+    container.style.position = 'fixed';
+    container.style.left = '-99999px';
+    container.style.top = '0';
+    container.style.width = A4_W_PX + 'px';
+    container.style.background = '#ffffff';
+    container.style.color = '#111111';
+    container.style.padding = '40px 48px';
+    container.style.boxSizing = 'border-box';
+    container.style.fontFamily = 'Calibri,"Segoe UI",Arial,sans-serif';
+    container.style.fontSize = '12px';
+    container.style.lineHeight = '1.4';
+    container.style.pointerEvents = 'none';
+
     var styleEl = document.createElement('style');
-    styleEl.textContent = getCompactCss();
+    styleEl.textContent = scopeCss(getCompactCss(), '__estimate_root__');
     container.appendChild(styleEl);
+
     var bodyWrap = document.createElement('div');
     bodyWrap.innerHTML = mdToHtml(mdContent);
     container.appendChild(bodyWrap);
+    return container;
+  }
+
+  function estimatePages(mdContent){
+    if(!mdContent || !mdContent.trim()) return 0;
+    var container = buildMeasureContainer(mdContent);
     measureHost.appendChild(container);
     var h = container.scrollHeight;
     measureHost.removeChild(container);
-    return Math.max(1, Math.ceil(h / PRINTABLE_HEIGHT_PX()));
+    return Math.max(1, Math.ceil(h / A4_H_PX));
   }
 
   var pageCountTimer = null;
@@ -805,48 +900,34 @@
   }
 
   /* ============================================================
-     RESUME PDF — real .pdf via jsPDF + html2canvas
+     PDF RENDERER — real .pdf via jsPDF + html2canvas
      ============================================================ */
-    function renderToPdf(htmlBody, cssText, outFilename){
+  function renderToPdf(htmlBody, cssText, outFilename){
     return Promise.all([
       window.jspdf ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),
       window.html2canvas ? Promise.resolve() : loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
     ]).then(function(){
-      // Build a fully self-contained, inline-styled A4 document.
-      // html2canvas respects inline styles far more reliably than <style> blocks.
-      var A4_W_PX  = 794;   // 210mm @ 96dpi
-      var PAD_X_PX = 48;    // ~12mm
-      var PAD_Y_PX = 40;    // ~10mm
+      // Guard: remove any stale container from a previous run
+      var stale = document.getElementById('__pdf_render_root__');
+      if(stale && stale.parentNode) stale.parentNode.removeChild(stale);
 
       var container = document.createElement('div');
-      container.style.cssText =
-        'position:fixed;left:-99999px;top:0;' +
-        'width:' + A4_W_PX + 'px;' +
-        'background:#ffffff;' +
-        'color:#111111;' +
-        'padding:' + PAD_Y_PX + 'px ' + PAD_X_PX + 'px;' +
-        'box-sizing:border-box;' +
-        'font-family:Calibri,"Segoe UI",Arial,sans-serif;' +
-        'font-size:12px;' +
-        'line-height:1.4;' +
-        '-webkit-font-smoothing:antialiased;';
-
-      // Inject the print CSS *scoped* to this container so the rules apply
-      // even when html2canvas parses the DOM.
-      var scopedCss = cssText
-        .replace(/(^|\})\s*([^{}@]+)\{/g, function(m, brace, sel){
-          // Prefix each selector with our unique wrapper id
-          var prefixed = sel.split(',').map(function(s){
-            s = s.trim();
-            if(!s || s.indexOf('@') === 0) return s;
-            return '#__pdf_render_root__ ' + s;
-          }).join(', ');
-          return brace + ' ' + prefixed + ' {';
-        });
       container.id = '__pdf_render_root__';
+      container.style.position = 'fixed';
+      container.style.left = '-99999px';
+      container.style.top = '0';
+      container.style.width = A4_W_PX + 'px';
+      container.style.background = '#ffffff';
+      container.style.color = '#111111';
+      container.style.padding = '40px 48px';
+      container.style.boxSizing = 'border-box';
+      container.style.fontFamily = 'Calibri,"Segoe UI",Arial,sans-serif';
+      container.style.fontSize = '12px';
+      container.style.lineHeight = '1.4';
+      container.style.webkitFontSmoothing = 'antialiased';
 
       var styleEl = document.createElement('style');
-      styleEl.textContent = scopedCss;
+      styleEl.textContent = scopeCss(cssText, '__pdf_render_root__');
       container.appendChild(styleEl);
 
       var bodyWrap = document.createElement('div');
@@ -872,12 +953,9 @@
         var pageWidthPt  = pdf.internal.pageSize.getWidth();
         var pageHeightPt = pdf.internal.pageSize.getHeight();
 
-        // Convert canvas px → pt scale (A4 width in pt is ~595)
         var imgWidthPt  = pageWidthPt;
         var imgHeightPt = (canvas.height * imgWidthPt) / canvas.width;
         var totalPages  = Math.max(1, Math.ceil(imgHeightPt / pageHeightPt));
-
-        // Slicing: how many canvas pixels correspond to one A4 page height
         var pageCanvasHeight = (canvas.width * pageHeightPt) / imgWidthPt;
 
         for(var i = 0; i < totalPages; i++){
@@ -904,6 +982,7 @@
       });
     });
   }
+
   function downloadPdf(){
     if(!editor.value.trim()){ showToast('Nothing to download'); return; }
     showToast('Generating PDF…');
@@ -957,6 +1036,7 @@
       mt.textContent = (f.ext || 'file').toUpperCase() + ' · ' + fmtBytes(f.size);
       info.appendChild(nm); info.appendChild(mt);
       var rm = document.createElement('button');
+      rm.type = 'button';
       rm.className = 'convert-file-remove'; rm.textContent = '✕'; rm.title = 'Remove';
       rm.addEventListener('click', function(ev){
         ev.stopPropagation();
@@ -1036,7 +1116,6 @@
     setCvtStatus('All files cleared. Upload a new file to begin.');
   });
 
-  /* Lazy-load JSZip + SheetJS */
   function ensureLibs(){
     if(convertState.libsLoaded) return Promise.resolve();
     if(convertState.libsPromise) return convertState.libsPromise;
@@ -1068,7 +1147,7 @@
     return text.replace(/\r\n/g,'\n').split('\n').filter(function(l){ return l.trim().length > 0; }).map(parseCsvLine);
   }
   function csvToHtmlTable(csv){
-    var rows = parseCsv(text == null ? '' : String(csv));
+    var rows = parseCsv(csv == null ? '' : String(csv));
     if(rows.length === 0) return '';
     var html = '<table><thead><tr>';
     rows[0].forEach(function(c){ html += '<th>' + escapeHtml(c) + '</th>'; });
@@ -1084,7 +1163,7 @@
   function extractText(entry){
     if(entry.text != null) return Promise.resolve(entry.text);
     if(entry.isImage) return Promise.resolve('[Image: ' + entry.name + ']');
-    if(entry.ext === 'pdf') return Promise.resolve('[PDF content cannot be fully extracted in-browser. Please use a .txt/.md/.docx version for text conversions.]');
+    if(entry.ext === 'pdf') return Promise.resolve('[PDF content cannot be fully extracted in-browser.]');
     if(entry.ext === 'docx'){
       return ensureLibs()
         .then(function(){ return JSZip.loadAsync(entry.arrayBuffer); })
@@ -1246,22 +1325,10 @@
     return text.split('\n').filter(function(l){return l.trim();}).map(function(l){ return [l]; });
   }
 
-  /* Convert tab PDF — real .pdf via jsPDF + html2canvas */
   function exportPdf(entry, text){
     showToast('Generating PDF…');
     var body = buildHtmlBody(entry, text);
-    var css = "@page{size:A4;margin:14mm;}" +
-              "html,body{margin:0;padding:0;background:#fff;}" +
-              "body{font-family:'Calibri','Segoe UI',Arial,sans-serif;color:#111;font-size:10pt;line-height:1.4;}" +
-              "h1{font-size:16pt;border-bottom:1.5pt solid #222;padding-bottom:4pt;}" +
-              "h2{font-size:11pt;border-bottom:.6pt solid #999;padding-bottom:2pt;text-transform:uppercase;letter-spacing:.05em;}" +
-              "h3{font-size:10.5pt;margin-top:10pt;}" +
-              "pre{background:#f5f5f5;padding:8pt;overflow:auto;font-size:9pt;white-space:pre-wrap;word-break:break-word;font-family:'Consolas','Courier New',monospace;}" +
-              "table{width:100%;border-collapse:collapse;font-size:9pt;}" +
-              "th,td{border:.6pt solid #ccc;padding:3pt 5pt;text-align:left;}" +
-              "th{background:#f0f0f0;}" +
-              "ul{padding-left:14pt;}" +
-              "img{max-width:100%;height:auto;display:block;margin:0 auto;}";
+    var css = getCompactCss();
     var outName = entry.name.replace(/\.[^.]+$/, '') + '.pdf';
     renderToPdf(body, css, outName)
       .catch(function(err){ showToast('PDF generation failed: ' + err.message); });
@@ -1389,6 +1456,7 @@
       var badge = document.createElement('span'); badge.className = 'compress-file-badge';
       badge.textContent = f.ext === 'zip' ? 'archive' : 'file';
       var rm = document.createElement('button');
+      rm.type = 'button';
       rm.className = 'compress-file-remove'; rm.textContent = '✕'; rm.title = 'Remove';
       rm.addEventListener('click', function(){
         compState.files.splice(idx, 1);
